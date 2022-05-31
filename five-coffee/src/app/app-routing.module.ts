@@ -7,14 +7,9 @@ import { BodyHomeComponent } from './five-coffee/component/home/bodyHome/bodyHom
 const routes: Routes = [
   {path: '',component: BodyHomeComponent},
   {path: 'admin', component: BodyComponent}
-  // {path: 'login', component: LoginComponent},
-  // {path: 'register', component: RegisterComponent},
+  
 ];
-// =======
-// import { BodyComponent } from './five-coffee/component/admin/body/body.component';
 
-// const routes: Routes = [{path:'admin',component:BodyComponent}];
-// >>>>>>> adminUI
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
