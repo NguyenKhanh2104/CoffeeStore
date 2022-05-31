@@ -9,7 +9,9 @@ import { BodyComponent } from './five-coffee/component/admin/body/body.component
 import { LoginComponent } from './five-coffee/component/form/login/login.component';
 import { RegisterComponent } from './five-coffee/component/form/register/register.component';
 import { FooterComponent } from './five-coffee/component/home/footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,9 @@ import { FooterComponent } from './five-coffee/component/home/footer/footer.comp
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

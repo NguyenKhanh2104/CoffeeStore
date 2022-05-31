@@ -1,0 +1,28 @@
+.container{
+    display: block;
+}
+/*  Filter  */
+.filter-type{
+    border: 1px solid #0090da;
+    border-radius: 15px;
+    margin: 5px;
+}
+.color-blue{
+    background-color: rgb(21 167 255);
+}
+.filter div ul li{
+    list-style-type: none;
+}
+.filter div ul li input{
+    margin-right: 15px;
+}
+.type{
+    font-size: 20px;
+    color: #0090da;
+    margin: auto;
+    text-align: center;
+}
+table{
+    margin-top: 5px;
+    border: 1px solid #0090da;
+}
