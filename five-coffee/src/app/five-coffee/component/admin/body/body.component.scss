@@ -1,47 +1,4 @@
-<<<<<<< HEAD
-#search{
-    display: flex;
-    background: #325345;
-    margin: auto;
-    width: 80%;
-    margin-top: 10px;
-    height: 40px;
-}
-#search .search{
-    width: 500px;
-    margin-left: 100px;
-    border-radius: 50px;
-    margin-top: 5px;
-    margin-right: 20px;
-    background: #765756;
-}
- .them{
-     width: 100px;
-     border-radius: 50px;
-     margin: 5px;
-     margin-left: 50px;
- }
 
- .loc{
-    width: 100px;
-    border-radius: 50px;
-    margin: 5px 40px;
- }
-
- .container{
-     height: 1000px;
-     width: 80%;
-     margin: auto;
-     display: flex;
-     background: #634543;
-     margin-top: 20px;
- }
-
- .container .main-left{
-     background: #982343;
-     width: 30%;
- }
-=======
 .container{
     display: block;
 }
@@ -126,4 +83,11 @@ table{
     margin-top: 5px;
     border: 1px solid #0090da;
 }
->>>>>>> adminUI
+
+.show{
+    position: absolute; 
+    transform: translate3d(-5px, 45px, 0px); 
+    top: 0px; 
+    left: -117px; 
+    will-change: transform;
+}

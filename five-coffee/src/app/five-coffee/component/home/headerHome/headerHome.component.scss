@@ -12,7 +12,7 @@ a{
 }
 
 .justify-content-between{
-    width: 100%;
+    // width: 75%;
 }
 .navbar-btn .option{
     border-radius: 50%;
@@ -44,9 +44,7 @@ a{
 .search form{
     margin-left: 10px;
 }
-.payment button{
-    margin: 5px;
-}
+
 
 .btn-primary{
     font-size: 20px;
@@ -65,43 +63,11 @@ a{
 
 }
 
-.box_{
-    border: 1px solid salmon;
-    margin: 10px;
-    height: 220px;
-    box-shadow: 0 0 11px rgba(33,33,33,.2); 
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.pa_size{
+    padding-right: 10px;
 }
 
-.box :hover{
-
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.img_box{
-    margin-left: 15px;
-    margin-top: 5px;
-}
-.oder .payment{
-    text-align: center;
-    overflow: hidden;
-    bottom: 10px;
-    margin-left: 150px;
-    position: absolute;
-}
-
-.button_icon{
-    padding: 5px;
-    text-align: center;
-    background: -moz-linear-gradient();
-    border-radius: 2px;
-    border: 0px;
-}
-
-.hoverCol :hover{
-    background: cornflowerblue;
-}
-
-.cart{
-    margin-top: 10px;
+.btn-outline-success{
+    color: cornflowerblue;
+    border-color: cornflowerblue;
 }
