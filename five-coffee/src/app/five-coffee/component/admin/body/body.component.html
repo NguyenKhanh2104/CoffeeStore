@@ -1,5 +1,8 @@
 <app-header></app-header>
 <div class="container">
+    <div class="search-bar">
+        
+    </div>
     <div class=" row justify-content-around">
         <div class="filter col-md-3">
             <div >
@@ -34,6 +37,18 @@
             </div>
         </div>  
         <div class="content col-md-8">
+            <div class="row mb-2">
+                <div class="col-md mt-1">
+                    <input type="text" placeholder="Tìm kiếm"  class="form-control search">
+                    <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                    
+                </div>
+                <div class="col-md-auto justify-content-end mt-1">
+                    <button class="btn text-white color-green mr-1">+</button>
+                    <button class="btn text-white color-blue"><i class="fa fa-filter" aria-hidden="true"> </i> Lọc
+                    </button>
+                </div>
+            </div>
             <table class="table table-borderless table-striped ">
                 <thead>
                     <tr class="color-blue">
