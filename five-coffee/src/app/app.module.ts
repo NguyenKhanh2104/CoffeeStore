@@ -1,42 +1,33 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA}  from '@angular/core';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 import { BrowserModule } from '@angular/platform-browser';
-
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FiveCoffeeComponent } from './five-coffee/five-coffee.component';
-import { HeaderComponent } from './five-coffee/component/admin/header/header.component';
-import { BodyComponent } from './five-coffee/component/admin/body/body.component';
-import { HeaderHomeComponent } from './five-coffee/component/home/headerHome/headerHome.component';
-import { BodyHomeComponent } from './five-coffee/component/home/bodyHome/bodyHome.component';
-import { LoginComponent } from './five-coffee/component/form/login/login.component';
-import { RegisterComponent } from './five-coffee/component/form/register/register.component';
-import { FooterHomeComponent } from './five-coffee/component/home/footerHome/footerHome.component';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { FormsModule } from '@angular/forms';
+import { AppComponent } from "./app.component";
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FiveCoffeeModule } from "./five-coffee/five-coffee.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OrderModule } from "ngx-order-pipe";
+import { FilterPipeModule } from "ngx-filter-pipe";
+import { Ng2SearchPipeModule } from "ng2-search-filter";
+import { ModalModule } from 'ngx-bootstrap/modal';  
 @NgModule({
   declarations: [
     AppComponent,
-    FiveCoffeeComponent,
-    HeaderComponent,
-    BodyComponent,
-    LoginComponent,
-    RegisterComponent,
-    
-    FooterHomeComponent,
-    HeaderHomeComponent,
-    BodyHomeComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule
+    OrderModule,
+    FilterPipeModule,
+    ModalModule.forRoot(),  
+    Ng2SearchPipeModule,
+    FormsModule,
+    AppRoutingModule, FiveCoffeeModule, NgxPaginationModule, RouterModule, HttpClientModule, ReactiveFormsModule, NgbModule
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-],
-  providers: [],
+  providers: [
+  ],
+  exports: [HttpClientModule, NgxPaginationModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
