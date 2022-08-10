@@ -24,7 +24,7 @@
     text-decoration: none;
     list-style: none;
     background: #0090da;
-   // border: 1px solid #465643;
+
 }
 #menu ul li:hover{
     background-color:#086391 ;
@@ -49,11 +49,8 @@
     color: black !important;
     text-transform: none !important; 
 }
-// #menu ul a:hover{
-//     background-color:#086391 ;
-// }
 .sidepanel  {
-    magin-left: 200px;
+    margin-left: 200px;
     width: 0;
     position: fixed;
     z-index: 1;
@@ -87,7 +84,7 @@
   }
   
   .openbtn {
-    magin-left: 200px;
+    margin-left: 200px;
     font-size: 20px;
     cursor: pointer;
     background-color: #0090da;

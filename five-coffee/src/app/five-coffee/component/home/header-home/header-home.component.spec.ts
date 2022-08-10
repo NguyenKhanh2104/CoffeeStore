@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderHomeComponent } from './headerHome.component';
+import { HeaderHomeComponent } from './header-home.component';
 
 describe('HeaderHomeComponent', () => {
   let component: HeaderHomeComponent;
@@ -11,9 +11,7 @@ describe('HeaderHomeComponent', () => {
       declarations: [ HeaderHomeComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HeaderHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

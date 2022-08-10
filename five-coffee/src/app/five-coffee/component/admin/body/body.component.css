@@ -34,7 +34,7 @@ input[type=number]:focus,
 .search{
     width: 90%;
     float: left;
-    // border-radius: 10px;
+
     border-right: none;
 }
 .search::placeholder{
@@ -42,7 +42,7 @@ input[type=number]:focus,
 }
 .search:focus{
     border: 1px solid #0090da;
-    // border: none;
+
 }
 .btn-search{
     float: left;
@@ -50,8 +50,8 @@ input[type=number]:focus,
     background: #0090da;
     color: white;
     font-size: 15px;
-    // border: 1px solid grey;
-    border-left: none; /* Prevent double borders */
+
+    border-left: none; 
     cursor: pointer;
 }
 .text-white{

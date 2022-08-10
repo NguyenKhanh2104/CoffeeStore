@@ -1,6 +1,7 @@
 *{
     padding: 0;
-    margin: auto;
+    margin-left: 0px;
+    margin-top: 0px;
 }
 a{
     color: black;
@@ -11,9 +12,6 @@ a{
     height: 100%;
 }
 
-.justify-content-between{
-    // width: 100%;
-}
 .navbar-btn .option{
     border-radius: 50%;
     margin-left: 5px;
@@ -66,9 +64,10 @@ a{
 }
 
 .box_{
-    border: 1px solid salmon;
     margin: 10px;
-    height: 220px;
+    width: 180px;
+    border-radius: 5px;
+    height: 200px;
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

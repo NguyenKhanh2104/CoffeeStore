@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer-home',
-  templateUrl: './footerHome.component.html',
-  styleUrls: ['./footerHome.component.scss']
+  templateUrl: './footer-home.component.html',
+  styleUrls: ['./footer-home.component.css']
 })
 export class FooterHomeComponent implements OnInit {
 

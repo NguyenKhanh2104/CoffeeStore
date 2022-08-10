@@ -7,11 +7,12 @@ import { FiveCoffeeRoutingModule } from './five-coffee-routing.module';
 import { ProfileComponent } from './component/profile/profile.component';
 import { SearchFilterPipe } from './search-filter.pipe';
 import { FilterPipe } from './filter.pipe';
-import { HeaderHomeComponent } from './component/home/headerHome/headerHome.component';
-import { FooterHomeComponent } from './component/home/footerHome/footerHome.component';
-import { BodyHomeComponent } from './component/home/bodyHome/bodyHome.component';
 import { BodyComponent } from './component/admin/body/body.component';
 import { HeaderComponent } from './component/admin/header/header.component';
+import { BodyHomeComponent } from './component/home/body-home/body-home.component';
+import { HeaderHomeComponent } from './component/home/header-home/header-home.component';
+import { FooterHomeComponent } from './component/home/footer-home/footer-home.component';
+
 
 
 @NgModule({
@@ -21,11 +22,11 @@ import { HeaderComponent } from './component/admin/header/header.component';
     ProfileComponent,
     SearchFilterPipe,
     FilterPipe,
+    BodyHomeComponent,
     HeaderHomeComponent,
     FooterHomeComponent,
-    BodyHomeComponent,
-    BodyComponent,
-    HeaderComponent
+    HeaderComponent,
+    BodyComponent
     
   ],
   imports: [

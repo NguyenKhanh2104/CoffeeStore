@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
-  styleUrls: ['./body.component.scss']
+  styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
   masterSelected: boolean;

@@ -1,17 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,map } from 'rxjs';
-import { CartService } from './cart.service';
-const API_URL = 'http://localhost:8080/api/public/';
+const API_URL = 'http://localhost:8080/api/staff/';
 const API_URL2 = 'http://localhost:8080/api/admin/';
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
+export class ProductService {
 
-  constructor(private http:HttpClient,private cartService:CartService) { }
-  getBooks(): Observable<any> {
-    return this.http.get(API_URL + 'allBook');
+  constructor(private http:HttpClient) { }
+  getProducts(): Observable<any> {
+    return this.http.get(API_URL + 'allProduct');
   }
   getABook(id: any) :Observable<any> {
     return this.http.get(API_URL + 'find/' + id);

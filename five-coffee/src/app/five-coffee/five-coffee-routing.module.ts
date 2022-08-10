@@ -4,8 +4,8 @@ import { LoginComponent } from './component/login/login.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { RegisterComponent } from './component/register/register.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { BodyHomeComponent } from './component/home/bodyHome/bodyHome.component';
 import { BodyComponent } from './component/admin/body/body.component';
+import { BodyHomeComponent } from './component/home/body-home/body-home.component';
 
 const routes: Routes = [
 
