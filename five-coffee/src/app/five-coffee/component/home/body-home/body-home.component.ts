@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderPipe } from 'ngx-order-pipe';
 import { isEmpty } from 'rxjs';
+import { CartService } from 'src/app/five-coffee/service/cart.service';
 import { CategoryService } from 'src/app/five-coffee/service/category.service';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
 import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.service';
@@ -24,14 +25,21 @@ export class BodyHomeComponent implements OnInit {
   searchText: any = '';
   searchKey: any = '';
   data = '';
-  constructor(private orderpipe: OrderPipe, private productService: ProductService,
-    private categoryService: CategoryService) { }
+  public cartObj: any = [];
+  cartTotalPrice: any;
+  constructor( private http: TokenStorageService,private orderpipe: OrderPipe, private productService: ProductService,
+    private categoryService: CategoryService,private cartService:CartService) { }
 
   ngOnInit(): void {
     this.show();
     this.showCategory();
     this.onSelected(this.data);
-    // this.searchByCategory(this.category);
+    this.getCartDetailsByUser();
+    //below function will be triggerd from when removing and qty  is changing..
+    this.cartService.cartServiceEvent.subscribe(data => {
+      this.cartObj = this.cartService.getCartOBj();
+      this.cartTotalPrice = this.cartService.cartTotalPrice;
+    });
 
   }
   arrays: any = [];
@@ -71,30 +79,7 @@ export class BodyHomeComponent implements OnInit {
       })
     }
   }
-  // searchByCategory(data:any) {
-
-  //   if(this.category == data){
-
-  //     this.categoryService.getBookByCategory(1).subscribe((res) => {
-  //       this.listProducts = res;
-  //       console.log("nhi lun")
-  //       console.log(this.listProducts);
-  //       this.category = this.selectedTeam;
-  //       console.log(this.category);
-  //       console.log(this.selectedTeam);
-  //     })
-  //   }else if(this.category = "Ăn vặt"){
-
-  //     this.categoryService.getBookByCategory(2).subscribe((res) => {
-  //       this.listProducts = res;
-  //       console.log("khanh dep trai")
-  //       console.log(this.listProducts);
-  //     })
-  //   }else{
-  //     this.ngOnInit();
-  //   }
-
-  // }
+ 
   setNewProduct(id: any): void {
     
     if(id==1){
@@ -115,6 +100,100 @@ export class BodyHomeComponent implements OnInit {
   }else{
     this.show();
   }
+  }
+  addCart(cartProductObj:any){
+    var cartObj = {
+      "productId":cartProductObj.id,
+      "qty":"1",
+      "price":cartProductObj.price
+    }   
+    this.cartService.addCart(cartObj);
+    console.log(cartObj);
+  }
+  getCartDetailsByUser() {
+    this.http.postRequestWithToken("api/staff/getCartsByUserId", {}).subscribe((data: any) => {
+      this.cartObj = data;
+      this.cartTotalPrice = this.getTotalAmounOfTheCart();
+    }, error => {
+
+    })
+  }
+  getTotalAmounOfTheCart() {
+    let obj = this.cartObj;
+    let totalPrice = 0;
+    for (var o in obj) {
+      totalPrice = totalPrice + parseFloat(obj[o].price);
+    }
+    return totalPrice.toFixed(2);
+  }
+  qtyChange(qty: any, cartObj: any) {
+    var request = {
+      "cartId": cartObj.id,
+      "qty": qty,
+      "price": (cartObj.price) * (qty)
+    }
+    this.http.postRequestWithToken("api/staff/updateQtyForCart", request).subscribe((data: any) => {
+      this.cartService.getCartDetailsByUser();//for updating in the application..
+    }, error => {
+
+    })
+  }
+  removeItem(cartObj: any) {
+    if (confirm("Are you sure want to delete..?")) {
+      let id = cartObj.id;
+      this.cartService.removeCart(id);
+
+    }
+  }
+  incrementQty(qty: any, cartObj: any) {
+    var quantity: any;
+    var priceString: any;
+
+    quantity = qty + 1;
+    priceString = (cartObj.price) + (cartObj.price / qty)
+
+    var request = {
+      "cartId": cartObj.id,
+      "qty": quantity,
+      "price": priceString
+    }
+    cartObj.qty = request.qty;
+    cartObj.price = request.price;
+    // var quantity2 = parseInt(request.qty)
+
+    console.log(request);
+    this.http.postRequestWithToken("api/staff/updateQtyForCart", request).subscribe((data: any) => {
+      this.cartService.getCartDetailsByUser();//for updating in the application..
+    }, error => {
+      alert("Error while fetching the cart Details");
+    })
+  }
+  decrementQty(qty: any, cartObj: any) {
+    var quantity: any;
+    var priceString: any;
+    var priceString1: any;
+    // quantity = qty-1;
+    quantity = qty - 1;
+    priceString = (cartObj.price) - (cartObj.price / qty)
+    priceString1 = cartObj.price;
+    var request = {
+      "cartId": cartObj.id,
+      "qty": quantity,
+      "price": priceString
+    }
+    cartObj.qty = request.qty;
+    cartObj.price = request.price;
+    // var quantity2 = parseInt(request.qty)
+    if (cartObj.qty < 1) {
+
+
+      this.cartService.removeCart(cartObj.id);
+    }
+    this.http.postRequestWithToken("api/staff/updateQtyForCart", request).subscribe((data: any) => {
+      this.cartService.getCartDetailsByUser();//for updating in the application..
+    }, error => {
+      alert("Error while fetching the cart Details");
+    })
   }
 }
 

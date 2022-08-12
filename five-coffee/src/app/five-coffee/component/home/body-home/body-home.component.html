@@ -16,18 +16,18 @@
                         </select>
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
                     </div>
-        
+
                     <div class="">
 
                         <form class="form-inline">
-                            <input [(ngModel)]="searchText" name="search"  class="form-control mr-sm-3 w-90" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <input [(ngModel)]="searchText" name="search" class="form-control mr-sm-3 w-90"
+                                type="search" placeholder="Search" aria-label="Search">
+
                         </form>
                     </div>
                 </div>
 
-                <div class="row featured__filter" style="justify-content: flex-start" >
+                <div class="row featured__filter" style="justify-content: flex-start">
                     <div class="col-lg-3  col-sm-6" *ngFor="let p of listProducts 
                     | searchFilter: searchText
                 
@@ -37,11 +37,10 @@
                         totalItems: count
                         };
                         let i = index" [class.active]="i == 1">
-                        <div class="box_"  >
+                        <div class="box_">
                             <a href="#">
                                 <div class="img_box">
-                                    <img src="{{p.img}}" alt="123"
-                                        style="width: 90%; height: 150px;">
+                                    <img src="{{p.img}}" alt="123" style="width: 90%; height: 150px;">
                                 </div>
                                 <div class="text-center">
                                     <span>{{p.name}}</span>
@@ -50,14 +49,17 @@
                                     <span>{{p.price}}</span>
                                 </div>
                             </a>
+                            <div class="row">
+                                <button (click)="addCart(p)" type="submit" class="w3ls-cart">Add to cart</button>
+                            </div>
                         </div>
-                        
+
                     </div>
-                   
+
                 </div>
-               
+
             </div>
-            <nav class="mt-4 "  style="position: absolute" aria-label="Page navigation sample">
+            <nav class="mt-4 " style="position: absolute" aria-label="Page navigation sample">
                 <ul class="pagination" style="position: absolute;margin-top: 32%;margin-left: 23%;">
                     <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="tabSize($event)">
                     </pagination-controls>
@@ -75,52 +77,90 @@
 
 
                         </select>
-                    
+
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
                     </div>
                 </div>
-                <br>    
-                <div class="table mt-sm-2" style="margin-top: 5px;">
-                    <table class="table table-bordered">
+                <br>
+                <div class="table mt-sm-2" style="margin-top: 5px; overflow-y: scroll;
+               height: 420px;border-radius: 15px">
+                    <table class="table table-bordered"
+                        style=" border-collapse: collapse; width: 100%;border-radius: 10px">
                         <thead>
                             <tr>
                                 <th>Tên</th>
                                 <th class="text-center">
-                                    <button class="button_icon"><i class="fa fa-minus " aria-hidden="true"></i></button>
                                     Số lượng
-                                    <button class="button_icon"><i class="fa fa-plus "> </i></button>
                                 </th>
                                 <th>Giá</th>
+                                <th>Xoá</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr class="hoverCol">
-                                <td>Bánh mì</td>
-                                <td style="text-align: center;">1</td>
-                                <td>10000</td>
-                            </tr>
-                            <tr>
-                                <td>...</td>
-                                <td style="text-align: center;">...</td>
-                                <td>...</td>
-                            </tr>
-                            <tr>
-                                <td>...</td>
-                                <td style="text-align: center;">...</td>
-                                <td>...</td>
+                            <tr class="hoverCol" *ngFor="let item of cartObj">
+                                <td>{{item.nameProduct}}</td>
+                                <td style="text-align: center;">
+                                    <button class="button_icon" (click)="decrementQty(item.qty,item)"><i
+                                            class="fa fa-minus " aria-hidden="true"></i></button>
+                                    {{item.qty}}
+                                    <button class="button_icon" (click)="incrementQty(item.qty,item)"><i
+                                            class="fa fa-plus "> </i></button>
+                                </td>
+                                <!-- <div style="display: flex;flex-direction: inherit;justify-content: space-around;"> -->
+                                <td>{{item.price}} </td>
+                                <td style="text-align: center"><button style="width: fit-content"
+                                        (click)="removeItem(item)" class="btn btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button></td>
+                                <!-- </div>/ -->
                             </tr>
                         </tbody>
+
                     </table>
                 </div>
-                <div class="cart text-center">
-                    <span><b>Giỏ hàng</b></span>
+                <div class="note" style="background-color: #FFF;
+                width: 103.5%;
+                height: 80px;
+                margin-top: -10px;
+                margin-left: -8px;
+                border-top-left-radius: 7px;
+                border-top-right-radius:7px ;display: flex">
+                    <p style="justify-content: center;margin-top: 25px">Ghi chú : </p>
+                    <input style="height: 80%;width: 50%;margin-top: 5px">
+                    <div>
+                        <p style="margin-left: 25%"> Tổng tiền : ${{cartTotalPrice}}</p>
+                        <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;">
+                        </p>
+                    </div>
                 </div>
                 <div>
 
                 </div>
-                <div class="d-flex justify-content-center payment">
-                    <button class="btn btn-primary">Thanh toán</button>
-                    <button class="btn btn-primary">Thông Báo</button>
+                <div class="d-flex justify-content-center payment ">
+                    <button  style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                        Thanh toán
+                      </button>
+                      
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" style="margin: auto" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header" style="text-align: center"  >
+                              <h5 class="modal-title" id="exampleModalLongTitle">Five-Coffee</h5>
+                             
+                            </div>
+                            <div class="modal-body">
+                              ...
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                 
+
                 </div>
             </div>
         </div>
