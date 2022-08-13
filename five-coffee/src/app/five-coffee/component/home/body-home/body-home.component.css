@@ -130,3 +130,8 @@ a {
 th{
     background: #5f9ea0;
 }
+
+.popupDonHang{
+    display: flex;
+    justify-content: space-between;
+}
