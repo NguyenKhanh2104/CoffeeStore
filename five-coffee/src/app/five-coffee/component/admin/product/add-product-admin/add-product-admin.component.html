@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <title>Document</title>
+</head>
+
+<body class="app sidebar-mini rtl">
+    <app-header-admin></app-header-admin>
+    <app-side-bar-admin></app-side-bar-admin>
+
+    <main class="app-content">
+        <div class="app-title">
+            <ul class="app-breadcrumb breadcrumb">
+                <li class="breadcrumb-item">Danh sách sản phẩm</li>
+                <li class="breadcrumb-item"><a href="#">Thêm sản phẩm</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Tạo mới sản phẩm</h3>
+                    <div class="tile-body">
+                        <div class="row element-button">
+                            <div class="col-sm-2">
+                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
+                                        class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
+                                        class="fas fa-folder-plus"></i> Thêm danh mục</a>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
+                                        class="fas fa-folder-plus"></i> Thêm tình trạng</a>
+                            </div>
+                        </div>
+                        <form class="row" [formGroup]="formValue">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Mã sản phẩm </label>
+                                <input class="form-control"  formControlName="bookId" type="text" placeholder="">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Tên sản phẩm</label>
+                                <input class="form-control"  formControlName="name" type="text">
+                            </div>
+
+
+                            <div class="form-group  col-md-3">
+                                <label class="control-label">Trạng thái</label>
+                                <input class="form-control"  formControlName="status" type="text">
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label class="control-label">Tác giả</label>
+                                <input class="form-control"  formControlName="author" type="text">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="exampleSelect1" class="control-label">Danh mục</label>
+                                <input class="form-control"  formControlName="category" type="text">
+                            </div>
+                    
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Giá bán</label>
+                                <input class="form-control"  formControlName="price" type="text">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Giá Khuyến mãi</label>
+                                <input class="form-control"  formControlName="sale_price" type="text">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Ảnh sản phẩm</label>
+                                <input class="form-control"  formControlName="img" type="text">
+                              
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Mô tả sản phẩm</label>
+                                <input class="form-control" formControlName="description" name="mota" id="mota" >
+                                <script>CKEDITOR.replace('mota');</script>
+                            </div>
+                            <button class="btn btn-save" [routerLink]="['/admin/product/']" (click)="postBook()" type="button">Lưu lại</button>
+                            <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--
+  MODAL CHỨC VỤ 
+-->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Thêm mới nhà cung cấp</h5>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập tên chức vụ mới</label>
+                            <input class="form-control" type="text" required>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="button">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+MODAL
+-->
+
+
+
+    <!--
+  MODAL DANH MỤC
+-->
+    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Thêm mới danh mục </h5>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập tên danh mục mới</label>
+                            <input class="form-control" type="text" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Danh mục sản phẩm hiện đang có</label>
+                            <ul style="padding-left: 20px;">
+                                <li>Bàn ăn</li>
+                                <li>Bàn thông minh</li>
+                                <li>Tủ</li>
+                                <li>Ghế gỗ</li>
+                                <li>Ghế sắt</li>
+                                <li>Giường người lớn</li>
+                                <li>Giường trẻ em</li>
+                                <li>Bàn trang điểm</li>
+                                <li>Giá đỡ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="button">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+MODAL
+-->
+
+
+
+
+    <!--
+MODAL TÌNH TRẠNG
+-->
+    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group  col-md-12">
+                            <span class="thong-tin-thanh-toan">
+                                <h5>Thêm mới tình trạng</h5>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập tình trạng mới</label>
+                            <input class="form-control" type="text" required>
+                        </div>
+                    </div>
+                    <BR>
+                    <button class="btn btn-save" type="button">Lưu lại</button>
+                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                    <BR>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+MODAL
+-->
+</body>
+
+</html>

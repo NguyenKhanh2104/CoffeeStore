@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <title>Quản lý nhân viên</title>
+</head>
+
+<body class="app sidebar-mini rtl">
+
+
+  <app-header-admin></app-header-admin>
+  <app-side-bar-admin></app-side-bar-admin>
+
+  <main class="app-content">
+    <div class="app-title">
+      <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách nhân viên</b></a></li>
+      </ul>
+      <div id="clock"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+          <div class="tile-body">
+
+            <div class="row element-button">
+              <div class="col-sm-2">
+
+                <a class="btn btn-add btn-sm" href="/admin/staff/add" [routerLink]="['/admin/staff/add/']"
+                  title="Thêm"><i class="fas fa-plus"></i>
+                  Tạo mới nhân viên</a>
+              </div>
+
+              <div class="col-sm-2">
+                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
+              </div>
+            </div>
+            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+              id="sampleTable">
+              <thead>
+                <tr>
+                  <th width="10"><input type="checkbox" id="all"></th>
+                  <th>ID nhân viên</th>
+                  <th width="150">Username</th>
+                  <th width="20">Ảnh thẻ</th>
+                  <!-- <th>Password</th> -->
+                  <th>SĐT</th>
+                  <th>Email</th>
+                  <th width="100">Tính năng</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!-- {{.log(this.arrays)}} -->
+                <tr *ngFor="let l of listUser;">
+
+                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                  <td>{{l.id}}</td>
+                  <td>{{l.username}}</td>
+                  <td><img class="img-card-person"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToK_-LT9HmxfBNTsC0A8wfvjtfxKh3GjexbQ&usqp=CAU"
+                      alt=""></td>
+                  <td>{{l.phone}}</td>
+                  <td>{{l.email}}</td>
+                  <td class="table-td-center">
+                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                      data-toggle="modal" (click)="openModalWithClass(template)" (click)="editUser(l)"><i
+                        class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                      (click)="removeUser(l)"><i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <ng-template #template class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
+    data-backdrop="static" data-keyboard="false">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">  
+      <span aria-hidden="true">×</span>  
+    </button>  
+    <form [formGroup]="updateUserForm">
+    <!-- <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content"> -->
+       
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group  col-md-12">
+                <span class="thong-tin-thanh-toan">
+                  <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label class="control-label">ID nhân viên</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.id"  disabled value="{{editModal.id}}"
+                  >
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Họ và tên</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.fullname" formControlName="fullname" 
+                  >
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Username</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.username" formControlName="username" 
+                  >
+              </div>
+              <div class="form-group  col-md-4">
+                <label class="control-label">Số điện thoại</label>
+                <input class="form-control" type="number" required [(ngModel)]="editModal.phone"  formControlName="phone">
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Địa chỉ email</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.email" formControlName="email">
+              </div>                 
+              <div class="form-group col-md-4">
+                <label class="control-label">Chức vụ</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.position" formControlName="position" 
+                  >
+              </div>
+              
+            </div>
+            
+            <BR>
+          </div>
+      
+        <div class="modal-footer">
+          <button (click)="updateUser()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
+          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
+        </div>
+      <!-- </div>
+    </div> -->
+  </form>
+  </ng-template>
+
+
+</body>
+
+</html>
