@@ -34,10 +34,10 @@
                     <h3 class="tile-title">Tạo mới sản phẩm</h3>
                     <div class="tile-body">
                         <div class="row element-button">
-                            <div class="col-sm-2">
+                            <!-- <div class="col-sm-2">
                                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
                                         class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
-                            </div>
+                            </div> -->
                             <div class="col-sm-2">
                                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
                                         class="fas fa-folder-plus"></i> Thêm danh mục</a>
@@ -50,21 +50,15 @@
                         <form class="row" [formGroup]="formValue">
                             <div class="form-group col-md-3">
                                 <label class="control-label">Mã sản phẩm </label>
-                                <input class="form-control"  formControlName="bookId" type="text" placeholder="">
+                                <input class="form-control"  formControlName="productId" type="text" placeholder="">
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="control-label">Tên sản phẩm</label>
                                 <input class="form-control"  formControlName="name" type="text">
                             </div>
-
-
                             <div class="form-group  col-md-3">
-                                <label class="control-label">Trạng thái</label>
-                                <input class="form-control"  formControlName="status" type="text">
-                            </div>
-                            <div class="form-group  col-md-3">
-                                <label class="control-label">Tác giả</label>
-                                <input class="form-control"  formControlName="author" type="text">
+                                <label class="control-label">Số lượng</label>
+                                <input class="form-control"  formControlName="qty" type="text">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="exampleSelect1" class="control-label">Danh mục</label>
@@ -75,11 +69,7 @@
                                 <label class="control-label">Giá bán</label>
                                 <input class="form-control"  formControlName="price" type="text">
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label">Giá Khuyến mãi</label>
-                                <input class="form-control"  formControlName="sale_price" type="text">
-                            </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-9">
                                 <label class="control-label">Ảnh sản phẩm</label>
                                 <input class="form-control"  formControlName="img" type="text">
                               
@@ -90,7 +80,7 @@
                                 <input class="form-control" formControlName="description" name="mota" id="mota" >
                                 <script>CKEDITOR.replace('mota');</script>
                             </div>
-                            <button class="btn btn-save" [routerLink]="['/admin/product/']" (click)="postBook()" type="button">Lưu lại</button>
+                            <button class="btn btn-save" [routerLink]="['/admin/product/']" (click)="postProduct()" type="button">Lưu lại</button>
                             <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
                         </form>
                     </div>

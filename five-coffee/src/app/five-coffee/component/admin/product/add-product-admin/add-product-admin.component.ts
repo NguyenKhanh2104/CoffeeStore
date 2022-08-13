@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from 'src/app/five-coffee/service/product.service';
 @Component({
   selector: 'app-add-product-admin',
   templateUrl: './add-product-admin.component.html',
@@ -12,18 +13,16 @@ export class AddProductAdminComponent implements OnInit {
   selectedFile!: File;
 
   id: any;
-  detailBook: any;
-  constructor( private formBuiler: FormBuilder, private route: ActivatedRoute,private router:Router ) { }
+  detailproduct: any;
+  constructor( private productService:ProductService,private formBuiler: FormBuilder, private route: ActivatedRoute,private router:Router ) { }
 
   ngOnInit(): void {
     this.formValue = this.formBuiler.group({
-      bookId:[''],
+      productId:[''],
       name: [''],
-      status: [''],
-      author: [''],
       img:[''],
       price : [''],
-      sale_price: [''],
+     qty: [''],
       description:[''],
       category:['']
       
@@ -32,44 +31,37 @@ export class AddProductAdminComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     })
-    this.showBookDetail(this.id); 
+    this.showProductDetail(this.id); 
   }
-  public showBookDetail(id: any) {
-    // this.bookService.getABook(id).subscribe((res => {
-    //   this.detailBook = res;
-    //   // console.log(this.detailBook);
-    // }))
+  public showProductDetail(id: any) {
+    this.productService.getAProduct(id).subscribe((res => {
+      this.detailproduct = res;
+      // console.log(this.detailBook);
+    }))
   }
-  postBook(){
+  postProduct(){
     const { value } = this.formValue;
     console.log(value);
 
     const postObj = {
-      bookId: value.bookId,
+      id: value.productId,
       name: value.name,
-      // password: "213",
-      status: value.status,
-      author: value.author,
-      // category: value.category,
+      qty: value.qty,
       img: value.img,
       price: value.price,
-      sale_price: value.sale_price,
       description : value.description,
       category: value.category
-    //  birthday: value.birthday,
-      // birthday: value.birthday
 
     }
 
     let headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     headers.append('accept', 'application/json');
-    // this.bookService.getAddBook(postObj).subscribe((res) =>{
-    //   console.log(res);
-    //   console.log('da them sach hihi')
-    // })
-   
-    confirm("ĐÃ THÊM SÁCH ");
+    this.productService.getAddProduct(postObj).subscribe((res) =>{
+      console.log(res);
+      console.log('da them sach hihi')
+      window.location.assign('http://localhost:4200/admin/product')
+    })
 
   }
   public onFileChange(event: any){

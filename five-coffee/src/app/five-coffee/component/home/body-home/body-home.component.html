@@ -39,7 +39,7 @@
                         };
                         let i = index" [class.active]="i == 1">
                         <div class="box_" style="height: 227px;">
-                            <a href="#">
+                           
                                 <div class="img_box">
                                     <img src="{{p.img}}" alt="123" style="width: 90%; height: 150px;">
                                 </div>
@@ -51,12 +51,11 @@
                                     <span>{{p.price}}</span>
                                     
                                 </div>
-                                <div class="hoveradd" style="background: #5f9ea0; text-align: center; font-size: larger;border-radius: 2px;">
+                                <div class="hoveradd" style="z-index: 100;;background: #5f9ea0; text-align: center; font-size: larger;border-radius: 2px;">
                                     <!-- <button (click)="addCart(p)" type="submit" class="w3ls-cart">Add to cart</button> -->
                                     <a href=""><i class="fa fa-shopping-cart" style="margin-right: 15px;"></i></a>
                                     <input (click)="addCart(p)" style="border: aliceblue; background: #5f9ea0;"  type="submit" class="w3ls-cart hoverButton" value="Add to cart">
                                 </div>
-                            </a>
                            
                         </div>
 
@@ -66,7 +65,7 @@
 
             </div>
             <nav class="mt-4 " style="position: absolute" aria-label="Page navigation sample">
-                <ul class="pagination" style="position: absolute;margin-top: 32%;margin-left: 23%;">
+                <ul class="pagination" style="position: absolute;margin-top: 34%;margin-left: 23%;">
                     <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="tabSize($event)">
                     </pagination-controls>
                 </ul>

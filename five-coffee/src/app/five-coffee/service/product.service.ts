@@ -16,7 +16,7 @@ export class ProductService {
     return this.http.get(API_URL + 'find/' + id);
   }
   removeAProduct(productId:any){
-    return this.http.delete(`${API_URL + "deleteProduct"}/${productId}`).pipe(map((reponse:
+    return this.http.delete(`${API_URL + "removeProduct"}/${productId}`).pipe(map((reponse:
       any) => {
         console.log("reponse:" + reponse);
         return reponse;
