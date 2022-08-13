@@ -7,11 +7,15 @@ import { FiveCoffeeRoutingModule } from './five-coffee-routing.module';
 import { ProfileComponent } from './component/profile/profile.component';
 import { SearchFilterPipe } from './search-filter.pipe';
 import { FilterPipe } from './filter.pipe';
-import { BodyComponent } from './component/admin/body/body.component';
-import { HeaderComponent } from './component/admin/header/header.component';
 import { BodyHomeComponent } from './component/home/body-home/body-home.component';
 import { HeaderHomeComponent } from './component/home/header-home/header-home.component';
 import { FooterHomeComponent } from './component/home/footer-home/footer-home.component';
+import { HomeAdminComponent } from './component/admin/home-admin/home-admin.component';
+import { HeaderAdminComponent } from './component/admin/header-admin/header-admin.component';
+import { OrderComponent } from './component/admin/order/order.component';
+import { ProductAdminComponent } from './component/admin/product/product-admin/product-admin.component';
+import { SideBarAdminComponent } from './component/admin/side-bar-admin/side-bar-admin.component';
+import { StaffAdminComponent } from './component/admin/staff/staff-admin/staff-admin.component';
 
 
 
@@ -22,11 +26,15 @@ import { FooterHomeComponent } from './component/home/footer-home/footer-home.co
     ProfileComponent,
     SearchFilterPipe,
     FilterPipe,
+    HomeAdminComponent,
+    HeaderAdminComponent,
+    OrderComponent,
+    ProductAdminComponent,
+    SideBarAdminComponent,
+    StaffAdminComponent,
     BodyHomeComponent,
     HeaderHomeComponent,
-    FooterHomeComponent,
-    HeaderComponent,
-    BodyComponent
+    FooterHomeComponent
     
   ],
   imports: [

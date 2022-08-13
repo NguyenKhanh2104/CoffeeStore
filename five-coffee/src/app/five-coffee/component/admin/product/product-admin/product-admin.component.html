@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý sản phẩm</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="app sidebar-mini rtl">
+  <app-header-admin></app-header-admin>
+  <app-side-bar-admin></app-side-bar-admin>
+
+  <main class="app-content">
+    <div class="app-title">
+      <ul class="app-breadcrumb breadcrumb side">
+        <li class="breadcrumb-item active"><a href="#"><b>Danh sách sản phẩm</b></a></li>
+      </ul>
+      <div id="clock"></div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tile">
+          <div class="tile-body">
+            <div class="row element-button">
+              <div class="col-sm-2">
+
+                <a class="btn btn-add btn-sm" href="/admin/product/add" [routerLink]="['/admin/product/add']"
+                  title="Thêm"><i class="fas fa-plus"></i>
+                  Tạo mới sản phẩm</a>
+              </div>
+
+              <div class="col-sm-2">
+                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
+              </div>
+            </div>
+            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:1272px">
+              <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th width="10"><input type="checkbox" id="all"></th>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Tình trạng</th>
+                    <th>Giá tiền</th>
+                    <th>Danh mục</th>
+                    <th>Chức năng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let b of listBooks">
+                    <td width="10"><input type="checkbox" name="check1" value=""></td>
+                    <td>{{b.id}}</td>
+                    <td>{{b.name}}</td>
+                    <td><img src={{b.img}} alt="" width="100px;"></td>
+                    <td>null</td>
+                    <td><span class="badge bg-success">Còn hàng</span></td>
+                    <td>{{b.price}}</td>
+                    <td>{{b.category}}</td>
+                 
+                    <td>
+                      <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                        data-toggle="modal" (click)="openModalWithClass1(template)" (click)="editBook(b)"><i
+                          class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" (click)="removeBook(b)"><i
+                          class="fas fa-trash-alt"></i>
+                      </button>
+
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <ng-template #template class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
+    data-backdrop="static" data-keyboard="false">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <form [formGroup]="updateBookForm">
+      <!-- <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content"> -->
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group  col-md-12">
+            <span class="thong-tin-thanh-toan">
+              <h5>Chỉnh sửa thông tin sản phẩm</h5>
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label class="control-label">Mã sản phẩm</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.id" disabled
+              value="{{editModal.id}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Tên sản phẩm</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.name" formControlName="name">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Hình ảnh</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.img" formControlName="img">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Trạng thái</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.status" formControlName="status">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Giá</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.price" formControlName="price">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Giá khuyến mãi</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.salePrice"
+              formControlName="sale_price">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Tác giả</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.author" formControlName="author">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Danh mục</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.category" formControlName="category">
+          </div>
+          <div class="form-group  col-md-5">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.description"
+              formControlName="description" style="height: 100px;width: 765px;word-wrap:break-word;overflow: scroll;">
+          </div>
+          <!-- <div class="form-group  col-md-4">
+                <label for="exampleSelect1" class="control-label">Chức vụ</label>
+                <select class="form-control" id="exampleSelect1">
+                  <option>Bán hàng</option>
+                  <option>Tư vấn</option>
+                  <option>Dịch vụ</option>
+                  <option>Thu Ngân</option>
+                  <option>Quản kho</option>
+                  <option>Bảo trì</option>
+                  <option>Kiểm hàng</option>
+                  <option>Bảo vệ</option>
+                  <option>Tạp vụ</option>
+                </select>
+              </div>
+           </div> 
+            
+            <BR>
+          </div>
+      -->
+        <div class="modal-footer">
+          <button (click)="updateBook()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
+          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
+        </div>
+     <!-- </div>  -->
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+
+</body>
+<script type="text/javascript">$('#sampleTable').DataTable();</script>
+<script>
+  oTable = $('#sampleTable').dataTable();
+  $('#all').click(function (e) {
+    $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+    e.stopImmediatePropagation();
+  });
+
+  var myApp = new function () {
+    this.printTable = function () {
+      var tab = document.getElementById('sampleTable');
+      var win = window.open('', '', 'height=700,width=700');
+      win.document.write(tab.outerHTML);
+      win.document.close();
+      win.print();
+    }
+  }
+</script>
+
+</html>

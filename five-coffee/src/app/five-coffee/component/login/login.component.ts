@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
         for (let index = 0; index < this.roles.length; index++) {
 
           if (this.roles[index] == 'ROLE_USER') {
-            // this.cartService.getCartDetailsByUser();
             window.location.assign('http://localhost:4200/home')
           }
           if (this.roles[index] == 'ROLE_ADMIN') {
