@@ -2,83 +2,82 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { OrderPipe } from 'ngx-order-pipe';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ProductService } from 'src/app/five-coffee/service/product.service';
 @Component({
   selector: 'app-product-admin',
   templateUrl: './product-admin.component.html',
   styleUrls: ['./product-admin.component.css']
 })
 export class ProductAdminComponent implements OnInit {
-  listBooks: any[] = [];
+  listProducts: any[] = [];
   arrays: any = [];
   editModal: any;
   modalRef!: BsModalRef;
-  updateBookForm!: FormGroup;
-  constructor(private formBuiler: FormBuilder, private modalService: BsModalService,  private orderpipe: OrderPipe) { }
+  updateProductForm!: FormGroup;
+  constructor(private productService:ProductService,private formBuiler: FormBuilder, private modalService: BsModalService,  private orderpipe: OrderPipe) { }
 
   ngOnInit(): void {
     this.show();
-    this.updateBookForm = this.formBuiler.group({
+    this.updateProductForm = this.formBuiler.group({
 
-      bookId: [''],
+      productId: [''],
       name: [''],
       img: [''],
       description: [''],
-      status: [''],
+      qty: [''],
       price: [''],
-      sale_price: [''],
-      author: [''],
       category: [''],
 
     })
   }
   show() {
-    // this.bookService.getBooks().subscribe
-    //   (data => {
-    //     // console.log(data);
-    //     this.listBooks = this.orderpipe.transform(data, 'id');
-    //     this.arrays = data;
-    //     console.log("LIST BOOK", this.arrays, typeof this.arrays);
-    //     console.log(this.listBooks)
-    //   })
+    this.productService.getProducts().subscribe
+      (data => {
+        // console.log(data);
+        this.listProducts = this.orderpipe.transform(data, 'id');
+        this.arrays = data;
+        console.log("LIST PRODUCT", this.arrays, typeof this.arrays);
+        console.log(this.listProducts)
+      })
   }
-  removeBook(listBook: any) {
-    // var result = confirm("Bạn chắc chắn muốn xóa ");
-    // if (result) {
-    //   this.bookService.removeABook(listBook.id).subscribe((res) => {
-    //     console.log("da xoa")
-    //     let index = this.listBooks.indexOf(listBook);
-    //     this.listBooks.splice(index, 1);
-    //   })
-    // }
+  removeProduct(listBook: any) {
+    var result = confirm("Bạn chắc chắn muốn xóa ");
+    if (result) {
+      this.productService.removeAProduct(listBook.id).subscribe((res) => {
+        console.log("da xoa")
+        let index = this.listProducts.indexOf(listBook);
+        this.listProducts.splice(index, 1);
+      })
+    }
   }
-  editBook(editBook: any) {
-    this.editModal = editBook;
+  editProduct(editProduct: any) {
+    this.editModal = editProduct;
 
   }
-  updateBook() {
+  realoadProduct(){
+    this.show();
+  }
+  updateProduct() {
     console.log("id" + this.editModal.id);
-    const { value } = this.updateBookForm;
+    const { value } = this.updateProductForm;
 
-    const bookObj = {
-      id: value.bookId,
+    const productObj = {
+      id: value.productId,
       name: value.name,
       img: value.img,
       description: value.description,
-      status: value.status,
       price: value.price,
-      sale_price: value.sale_price,
-      author: value.author,
+      qty: value.qty,
       category: value.category,
 
     }
     
-    // this.bookService.getUpdateBook(bookObj, this.editModal.id).subscribe(
-    //   (res =>{
-    //     console.log("có vô đây không")
-    //     console.log(res)
-    //   })
-    // );
-    // alert("ĐÃ chỉnh sửa")
+    this.productService.getUpdateProduct(productObj, this.editModal.id).subscribe(
+      (res =>{
+        console.log("có vô đây không")
+        console.log(res)
+      })
+    );
   }
 
   openModalWithClass1(template: TemplateRef<any>) {

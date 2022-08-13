@@ -47,7 +47,7 @@
                     class="fas fa-trash-alt"></i> Xóa tất cả </a>
               </div>
             </div>
-            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:1272px">
+            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:100%">
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
@@ -56,30 +56,31 @@
                     <th>Tên sản phẩm</th>
                     <th>Ảnh</th>
                     <th>Số lượng</th>
-                    <th>Tình trạng</th>
                     <th>Giá tiền</th>
-                    <th>Danh mục</th>
+                    <th>Mã danh mục</th>
+                    <th>Mô tả</th>
+                    <th>Ngày tạo</th>
                     <th>Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let b of listBooks">
+                  <tr *ngFor="let p of listProducts">
                     <td width="10"><input type="checkbox" name="check1" value=""></td>
-                    <td>{{b.id}}</td>
-                    <td>{{b.name}}</td>
-                    <td><img src={{b.img}} alt="" width="100px;"></td>
-                    <td>null</td>
-                    <td><span class="badge bg-success">Còn hàng</span></td>
-                    <td>{{b.price}}</td>
-                    <td>{{b.category}}</td>
-                 
-                    <td>
-                      <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                        data-toggle="modal" (click)="openModalWithClass1(template)" (click)="editBook(b)"><i
-                          class="fas fa-edit"></i>
+                    <td>{{p.id}}</td>
+                    <td>{{p.name}}</td>
+                    <td><img src={{p.img}} alt="" style="width: 90%;height: 50px;"></td>
+                    <td>{{p.qty}}</td>
+                    <td>{{p.price}}</td>
+                    <td>{{p.category}}</td>
+                    <td>{{p.description}}</td>
+                    <td>{{p.dateCreate}}</td>
+                    <td style="display:flex;border: none;justify-content: space-around;">
+                      <button style="justify-content:center" class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                        data-toggle="modal" (click)="openModalWithClass1(template)" (click)="editProduct(p)"><i
+                          class="fas fa-edit" style="font-size: 20px"></i>
                       </button>
-                      <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" (click)="removeBook(b)"><i
-                          class="fas fa-trash-alt"></i>
+                      <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" (click)="removeProduct(p)"><i
+                          class="fas fa-trash-alt" style="font-size: 20px"></i>
                       </button>
 
 
@@ -99,7 +100,7 @@
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">×</span>
     </button>
-    <form [formGroup]="updateBookForm">
+    <form [formGroup]="updateProductForm">
       <!-- <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content"> -->
 
@@ -125,22 +126,22 @@
             <label class="control-label">Hình ảnh</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.img" formControlName="img">
           </div>
-          <div class="form-group col-md-4">
+          <!-- <div class="form-group col-md-4">
             <label class="control-label">Trạng thái</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.status" formControlName="status">
-          </div>
+          </div> -->
           <div class="form-group col-md-4">
             <label class="control-label">Giá</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.price" formControlName="price">
           </div>
-          <div class="form-group col-md-4">
+          <!-- <div class="form-group col-md-4">
             <label class="control-label">Giá khuyến mãi</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.salePrice"
               formControlName="sale_price">
-          </div>
+          </div> -->
           <div class="form-group col-md-4">
-            <label class="control-label">Tác giả</label>
-            <input class="form-control" type="text" required [(ngModel)]="editModal.author" formControlName="author">
+            <label class="control-label">Số lượng</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.qty" formControlName="qty">
           </div>
           <div class="form-group col-md-4">
             <label class="control-label">Danh mục</label>
@@ -171,8 +172,8 @@
           </div>
       -->
         <div class="modal-footer">
-          <button (click)="updateBook()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
-          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
+          <button (click)="updateProduct()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
+          <button type="button" (click)="realoadProduct()" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
         </div>
      <!-- </div>  -->
         </div>

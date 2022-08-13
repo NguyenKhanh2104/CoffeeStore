@@ -9,6 +9,7 @@ import { HomeAdminComponent } from './component/admin/home-admin/home-admin.comp
 import { StaffAdminComponent } from './component/admin/staff/staff-admin/staff-admin.component';
 import { ProductAdminComponent } from './component/admin/product/product-admin/product-admin.component';
 import { OrderComponent } from './component/admin/order/order.component';
+import { AddProductAdminComponent } from './component/admin/product/add-product-admin/add-product-admin.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'admin', component: HomeAdminComponent},
   {path: 'admin/staff', component: StaffAdminComponent},
   {path: 'admin/product', component: ProductAdminComponent},
+  {path: 'admin/product/add', component: AddProductAdminComponent},
   {path: 'admin/order', component: OrderComponent},
   {path:'profile',component:ProfileComponent},
   {path:'home',component:BodyHomeComponent}

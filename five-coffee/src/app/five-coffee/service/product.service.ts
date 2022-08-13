@@ -12,18 +12,18 @@ export class ProductService {
   getProducts(): Observable<any> {
     return this.http.get(API_URL + 'allProduct');
   }
-  getABook(id: any) :Observable<any> {
+  getAProduct(id: any) :Observable<any> {
     return this.http.get(API_URL + 'find/' + id);
   }
-  removeABook(bookId:any){
-    return this.http.delete(`${API_URL2 + "deleteBook"}/${bookId}`).pipe(map((reponse:
+  removeAProduct(productId:any){
+    return this.http.delete(`${API_URL + "deleteProduct"}/${productId}`).pipe(map((reponse:
       any) => {
         console.log("reponse:" + reponse);
         return reponse;
       }))
   }
-  getUpdateBook(data:any, bookid: number){
-    return this.http.put(`${API_URL2 +"updateBook"}/${bookid}`, data).pipe(map(
+  getUpdateProduct(data:any, productId: number){
+    return this.http.put(`${API_URL +"updateProduct"}/${productId}`, data).pipe(map(
       (reponse: any) =>{
         console.log("có update được ko")
         return reponse;
@@ -31,11 +31,11 @@ export class ProductService {
     ))
   }
 
-  getAddBook(data: any): Observable<any>{
+  getAddProduct(data: any): Observable<any>{
     let headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     headers.append('accept', 'application/json');
-    return this.http.post(API_URL2 + "addBook", data, {headers: headers}).pipe(map(
+    return this.http.post(API_URL + "addProduct", data, {headers: headers}).pipe(map(
       (reponse: any) =>{
         return reponse;
       }

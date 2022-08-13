@@ -2,8 +2,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookService } from 'src/app/shop-book/service/book.service';
-import { UploadImageService } from 'src/app/shop-book/service/upload-image.service';
 @Component({
   selector: 'app-add-product-admin',
   templateUrl: './add-product-admin.component.html',
@@ -15,7 +13,7 @@ export class AddProductAdminComponent implements OnInit {
 
   id: any;
   detailBook: any;
-  constructor(private bookService :BookService ,private formBuiler: FormBuilder, private route: ActivatedRoute,private router:Router,public uploadImageService:UploadImageService ) { }
+  constructor( private formBuiler: FormBuilder, private route: ActivatedRoute,private router:Router ) { }
 
   ngOnInit(): void {
     this.formValue = this.formBuiler.group({
@@ -37,10 +35,10 @@ export class AddProductAdminComponent implements OnInit {
     this.showBookDetail(this.id); 
   }
   public showBookDetail(id: any) {
-    this.bookService.getABook(id).subscribe((res => {
-      this.detailBook = res;
-      // console.log(this.detailBook);
-    }))
+    // this.bookService.getABook(id).subscribe((res => {
+    //   this.detailBook = res;
+    //   // console.log(this.detailBook);
+    // }))
   }
   postBook(){
     const { value } = this.formValue;
@@ -66,10 +64,10 @@ export class AddProductAdminComponent implements OnInit {
     let headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     headers.append('accept', 'application/json');
-    this.bookService.getAddBook(postObj).subscribe((res) =>{
-      console.log(res);
-      console.log('da them sach hihi')
-    })
+    // this.bookService.getAddBook(postObj).subscribe((res) =>{
+    //   console.log(res);
+    //   console.log('da them sach hihi')
+    // })
    
     confirm("ĐÃ THÊM SÁCH ");
 
