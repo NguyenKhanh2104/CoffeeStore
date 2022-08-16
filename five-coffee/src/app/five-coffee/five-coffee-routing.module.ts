@@ -10,6 +10,7 @@ import { StaffAdminComponent } from './component/admin/staff/staff-admin/staff-a
 import { ProductAdminComponent } from './component/admin/product/product-admin/product-admin.component';
 import { OrderComponent } from './component/admin/order/order.component';
 import { AddProductAdminComponent } from './component/admin/product/add-product-admin/add-product-admin.component';
+import { AddStaffAdminComponent } from './component/admin/staff/add-staff-admin/add-staff-admin.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: HomeAdminComponent},
   {path: 'admin/staff', component: StaffAdminComponent},
+  {path: 'admin/staff/add', component: AddStaffAdminComponent},
   {path: 'admin/product', component: ProductAdminComponent},
   {path: 'admin/product/add', component: AddProductAdminComponent},
   {path: 'admin/order', component: OrderComponent},

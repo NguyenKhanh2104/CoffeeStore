@@ -2,7 +2,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/shop-book/service/user.service';
+import { AuthService } from 'src/app/five-coffee/service/auth.service';
+import { UserService } from 'src/app/five-coffee/service/user.service';
 
 @Component({
   selector: 'app-add-staff-admin',
@@ -10,74 +11,28 @@ import { UserService } from 'src/app/shop-book/service/user.service';
   styleUrls: ['./add-staff-admin.component.css']
 })
 export class AddStaffAdminComponent implements OnInit {
-  formValue!: FormGroup;
-  selectedFile!: File;
+  form: any = {};
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+  constructor(private authService: AuthService) { }
 
-  id: any;
-  detailUser: any;
-  constructor(private userService: UserService, private formBuiler: FormBuilder, private router:Router
-    , private route: ActivatedRoute) { }
+  ngOnInit(): void { }
 
-  ngOnInit(): void {
-
-    this.formValue = this.formBuiler.group({
-      userId:[''],
-      fullname: [''],
-      email: [''],
-      address: [''],
-      sex: [''],
-      phone : [''],
-      position: [''],
-      username: ['']
-    })
-
-    this.route.paramMap.subscribe(params => {
-      this.id = params.get('id');
-    })
-    this.showUserDetail(this.id); 
-
-  }
-
-  public showUserDetail(id: any) {
-    this.userService.getAUser(id).subscribe((res => {
-      this.detailUser = res;
-      console.log(this.detailUser);
-    }))
-  }
-  postStaff(){
-    const { value } = this.formValue;
-    console.log(value);
-
-    const postObj = {
-      userId: value.userId,
-      email: value.email,
-      // password: "213",
-      phone: value.phone,
-      username: value.username,
-      fullname: value.fullname,
-      // img: "dsf",
-      address: value.address,
-      sex: value.sex,
-     position: value.position,
-    //  birthday: value.birthday,
-      // birthday: value.birthday
-
-    }
-
-    console.log("ngày:" + value.birthday, typeof value.birthday);
-    let headers = new HttpHeaders();
-    headers.append('content-type', 'application/json');
-    headers.append('accept', 'application/json');
-    this.userService.getAddUser(postObj).subscribe((res) =>{
-      console.log(res);
-    })
-
-    confirm("ĐÃ THÊM NHÂN VIÊN ");
-
-  }
-
-  public onFileChange(event: any){
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
+  onSubmit(): void {
+    this.authService.register(this.form).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+        
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+        alert('Thêm tài khoản thành công')
+        window.location.assign('http://localhost:4200/admin/staff')
+      }
+    );
   }
 }

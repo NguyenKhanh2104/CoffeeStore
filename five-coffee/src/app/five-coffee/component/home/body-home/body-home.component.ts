@@ -16,16 +16,20 @@ export class BodyHomeComponent implements OnInit {
   listCategory: any[] = [];
   page = 1;
   selectedTeam = '';
+  selectedType = '';
   category = '';
   count = 0;
   cart_qty = 0;
+  noteCheckout = "";
   tableSize = 8;
   id: any;
   sizeId = 1;
+  pay_type = "";
   searchText: any = '';
   searchKey: any = '';
   data = '';
   public cartObj: any = [];
+  selectedg3 = ''
   cartTotalPrice: any;
   constructor( private http: TokenStorageService,private orderpipe: OrderPipe, private productService: ProductService,
     private categoryService: CategoryService,private cartService:CartService) { }
@@ -40,7 +44,7 @@ export class BodyHomeComponent implements OnInit {
       this.cartObj = this.cartService.getCartOBj();
       this.cartTotalPrice = this.cartService.cartTotalPrice;
     });
-
+    console.log(this.selectedType);
   }
   arrays: any = [];
   arrays2: any = [];
@@ -53,7 +57,6 @@ export class BodyHomeComponent implements OnInit {
         console.log("LIST BOOK", this.arrays, typeof this.arrays);
 
       })
-
 
   }
   showCategory() {
@@ -69,6 +72,27 @@ export class BodyHomeComponent implements OnInit {
   onSelected(value: any) {
     this.selectedTeam = value;
     this.category = this.selectedTeam;
+  }
+  
+  selectedArray = [
+    
+    {
+      id: 1,
+      name: "Bàn 1"
+    },
+    {
+      id: 2,
+      name: "Bàn 2"
+    },
+    {
+      id: 3,
+      name: "Bàn 3"
+    }
+  ]
+  
+  onSelectedTypePay(value: any) {
+    this.selectedType = value;
+   this.pay_type = value;
   }
   searchThis(data: any) {
     if (data == "") {
@@ -194,6 +218,35 @@ export class BodyHomeComponent implements OnInit {
     }, error => {
       alert("Error while fetching the cart Details");
     })
+  }
+  checkoutCart() {
+    var cart_qty: any;
+    if (this.http.getToken()) {
+      this.cartService.cartServiceEvent.subscribe(data => {
+        cart_qty = this.cartService.getQty();
+      })
+      if(cart_qty==0){
+        alert("vui lòng thêm sản phẩm vào giỏ hàng")
+      }
+    }
+    if (this.noteCheckout == "") {
+      this.noteCheckout = "no note";
+    }
+    
+      let request = {
+        "total_price": this.cartTotalPrice,
+        "pay_type": "Mang đi",
+        "note": this.noteCheckout,
+      }
+      
+      console.log(request);
+      this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
+        this.cartService.getCartDetailsByUser();
+       
+      }, error => {
+        alert("Error while fetching the cart Details");
+      })
+    
   }
 }
 

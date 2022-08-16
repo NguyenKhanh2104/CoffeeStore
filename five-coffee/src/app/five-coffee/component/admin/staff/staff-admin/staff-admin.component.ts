@@ -2,6 +2,7 @@ import { Component, OnInit,TemplateRef  } from '@angular/core';
 import { OrderPipe } from 'ngx-order-pipe';
   import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal'; 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/five-coffee/service/user.service';
 
 @Component({
   selector: 'app-staff-admin',
@@ -16,7 +17,7 @@ export class StaffAdminComponent implements OnInit {
     editModal:any;
   updateUserForm!:FormGroup;
 
-  constructor(private orderpipe: OrderPipe, private modalService: BsModalService, 
+  constructor(private userService:UserService,private orderpipe: OrderPipe, private modalService: BsModalService, 
      private formBuiler: FormBuilder) { }
 
   ngOnInit(): void {
@@ -25,40 +26,36 @@ export class StaffAdminComponent implements OnInit {
     this.updateUserForm = this.formBuiler.group({
       
       userId:[''],
-      fullname: [''],
+      fullName: [''],
       username: [''],
       email: [''],
       address: [''],
       sex: [''],
-      position: [''],
+      role: [''],
       phone : [''],
+      birthday:['']
 
     })
   }
 
   show() {
-    // this.userService.getUserBoard().subscribe
-    //   (data => {
-    //     // this.listUser = JSON.parse(data);
-    //     this.listUser = this.orderpipe.transform(data, 'username');
-    //     this.arrays = data;
-    //     console.log(this.listUser, typeof this.listUser);
-    //   })
+    this.userService.getUsers().subscribe
+      (data => {
+        // this.listUser = JSON.parse(data);
+        this.listUser = this.orderpipe.transform(data, 'username');
+        this.arrays = data;
+        console.log(this.listUser, typeof this.listUser);
+      })
   }
 
   removeUser(listUser: any) {
-    // alert("Bạn chắc chắn muốn xóa ")
-
-
-    // var result = confirm("Bạn chắc chắn muốn xóa ");
-    // if (result) {
-    //   this.userService.getRemoveUser(listUser.id).subscribe((res) => {
-    //     let index = this.listUser.indexOf(listUser);
-    //     this.listUser.splice(index, 1);
-    //   })
-    // } else {
-    //   alert("Bye!!");
-    // }
+    var result = confirm("Bạn chắc chắn muốn xóa ");
+    if (result) {
+      this.userService.removeUser(listUser.id).subscribe((res) => {
+        let index = this.listUser.indexOf(listUser);
+        this.listUser.splice(index, 1);
+      })
+    }
   }
 
   editUser(editUser: any){
@@ -81,24 +78,23 @@ export class StaffAdminComponent implements OnInit {
 
     const userObj = {
       userId: value.userId,
+      fullName:value.fullName,
       email: value.email,
       username: value.username,
       address: value.address,
       phone: value.phone,
       sex: value.sex,
-      fullname: value.fullname,
-      position: value.position
+      birthday:value.birthday,
+      role: value.role
 
   
     }
  
-    // console.log(" test thử: " + value.updateUserFullname)
-    // this.userService.getUpdateUser(userObj, this.editModal.id).subscribe(
-    //   (res =>{
-    //     console.log("có vô đây không")
-    //     console.log(res)
-    //   })
-    // );
-    // alert("ĐÃ chỉnh sửa")
+    this.userService.getUpdateUser(userObj, this.editModal.id).subscribe(
+      (res =>{
+      
+        console.log(res)
+      })
+    );
   }
 }

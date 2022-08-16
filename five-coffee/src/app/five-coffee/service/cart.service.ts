@@ -24,7 +24,7 @@ export class CartService {
      this.cartTotalPrice = this.getTotalAmounOfTheCart();
       this.cartServiceEvent.next({"status":"completed"})//emitter
      },error=>{
-      //  alert("Error while fetching the cart Details");
+       alert("Error while fetching the cart Details");
      })
    }
 

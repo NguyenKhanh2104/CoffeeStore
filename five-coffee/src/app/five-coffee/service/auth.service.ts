@@ -27,7 +27,13 @@ export class AuthService {
       username: user.username,
       email: user.email,
       password: user.password,
-      phone: user.phone
+      phone: user.phone,
+      address: user.address,
+      fullName:user.fullName,
+      img:user.img,
+      sex:user.sex,
+      birthday:user.birthday,
+      role:user.role
     }, httpOptions);
   }
 }

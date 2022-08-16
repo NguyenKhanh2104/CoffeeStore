@@ -13,18 +13,14 @@ export class UserService {
   listUser :any = [];
 
   constructor(private http: HttpClient, private https:TokenStorageService) { 
-    // this.getUserID(); 
   }
-  getBooks(): Observable<any> {
-    return this.http.get(API_URL + 'allBook');
-  }
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+  getUsers(): Observable<any> {
+    return this.http.get(API_URL + 'allUser');
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user');
-  }
+  // getUserBoard(): Observable<any> {
+  //   return this.http.get(API_URL + 'user');
+  // }
 
   getModeratorBoard(): Observable<any> {
     return this.http.get(API_URL + 'mod', { responseType: 'text' });
@@ -34,8 +30,8 @@ export class UserService {
     return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
 
-  getRemoveUser(userId:any){
-    return this.http.delete(`${API_URL + "deleteUser"}/${userId}`).pipe(map((reponse:
+  removeUser(userId:any){
+    return this.http.delete(`${API_URL + "removeUser"}/${userId}`).pipe(map((reponse:
       any) => {
         console.log("reponse:" + reponse);
         return reponse;
@@ -60,7 +56,6 @@ export class UserService {
   getUpdateUser(data:any, userId: number){
     return this.http.put(`${API_URL +"updateUser"}/${userId}`, data).pipe(map(
       (reponse: any) =>{
-        console.log("có update được ko")
         return reponse;
       }
     ))

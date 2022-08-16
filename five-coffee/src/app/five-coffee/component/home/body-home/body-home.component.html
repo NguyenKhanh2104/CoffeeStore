@@ -74,16 +74,14 @@
                 style="background-color: cadetblue; width: 36%;height: 610px;border-radius: 10px; padding-bottom: 20px; margin: 0; padding-left: 10px; padding-right: 10px; position: relative;">
                 <div class="mt-sm-2">
                     <div class="col-sm-4 d-flex">
-                        <select name="" id="">
-                            <option value="1">Mang đi</option>
-                            <option value="1">Bàn 1</option>
-                            <option value="1">Bàn 2</option>
-                            <option value="1">bàn 3</option>
-
-
+                        <select #selectElem2 (change)="onSelectedTypePay(selectElem2.value)">
+                            <option [defaultSelected]="selectElem2">Mang đi</option>
+                            <option *ngFor="let c of selectedArray" [value]="c.name">
+                                {{c.name}}
+                            </option>
                         </select>
-
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
+                       
                     </div>
                 </div>
                 <br>
@@ -131,7 +129,7 @@
                 border-top-left-radius: 7px;
                 border-top-right-radius:7px ;display: flex">
                     <p style="justify-content: center;margin-top: 25px">Ghi chú : </p>
-                    <input style="height: 80%;width: 50%;margin-top: 5px">
+                    <input style="height: 80%;width: 50%;margin-top: 5px" [(ngModel)]="noteCheckout">
                     <div>
                         <p style="margin-left: 25%"> Tổng tiền : ${{cartTotalPrice}}</p>
                         <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;">
@@ -142,7 +140,7 @@
 
                 </div>
                 <div class="d-flex justify-content-center payment ">
-                    <button  style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button  style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter" (click)="checkoutCart()">
                         Thanh toán
                       </button>
                       

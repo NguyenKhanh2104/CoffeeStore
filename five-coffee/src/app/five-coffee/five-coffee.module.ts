@@ -17,6 +17,7 @@ import { ProductAdminComponent } from './component/admin/product/product-admin/p
 import { SideBarAdminComponent } from './component/admin/side-bar-admin/side-bar-admin.component';
 import { StaffAdminComponent } from './component/admin/staff/staff-admin/staff-admin.component';
 import { AddProductAdminComponent } from './component/admin/product/add-product-admin/add-product-admin.component';
+import { AddStaffAdminComponent } from './component/admin/staff/add-staff-admin/add-staff-admin.component';
 
 
 
@@ -34,6 +35,7 @@ import { AddProductAdminComponent } from './component/admin/product/add-product-
     SideBarAdminComponent,
     StaffAdminComponent,
     AddProductAdminComponent,
+    AddStaffAdminComponent,
     BodyHomeComponent,
     HeaderHomeComponent,
     FooterHomeComponent

@@ -50,17 +50,21 @@
                     class="fas fa-trash-alt"></i> Xóa tất cả </a>
               </div>
             </div>
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:100%">
+            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
               id="sampleTable">
               <thead>
                 <tr>
                   <th width="10"><input type="checkbox" id="all"></th>
                   <th>ID nhân viên</th>
+                  <th>Họ và tên</th>
                   <th width="150">Username</th>
-                  <th width="20">Ảnh thẻ</th>
-                  <!-- <th>Password</th> -->
-                  <th>SĐT</th>
+                  <th>Phone</th>
                   <th>Email</th>
+                  <th>Địa chỉ</th>
+                  <th>Ngày sinh</th>
+                  <th>Giới tính</th>
+                  <th>Chức vụ</th>
                   <th width="100">Tính năng</th>
                 </tr>
               </thead>
@@ -71,24 +75,27 @@
 
                   <td width="10"><input type="checkbox" name="check1" value="1"></td>
                   <td>{{l.id}}</td>
+                  <td>{{l.fullName}}</td>
                   <td>{{l.username}}</td>
-                  <td><img class="img-card-person"
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToK_-LT9HmxfBNTsC0A8wfvjtfxKh3GjexbQ&usqp=CAU"
-                      alt=""></td>
                   <td>{{l.phone}}</td>
                   <td>{{l.email}}</td>
-                  <td class="table-td-center">
+                  <td>{{l.address}}</td>
+                  <td>{{l.birthday}}</td>
+                  <td>{{l.sex}}</td>
+                  <td>{{l.role}}</td>
+                  <td class="table-td-center" style="display:flex;border: none;justify-content: space-around;">
                     <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
                       data-toggle="modal" (click)="openModalWithClass(template)" (click)="editUser(l)"><i
-                        class="fas fa-edit"></i>
+                        class="fas fa-edit" style="font-size: 20px"></i>
                     </button>
                     <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      (click)="removeUser(l)"><i class="fas fa-trash-alt"></i>
+                      (click)="removeUser(l)"><i class="fas fa-trash-alt" style="font-size: 20px"></i>
                     </button>
                   </td>
                 </tr>
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       </div>
@@ -102,9 +109,7 @@
       <span aria-hidden="true">×</span>  
     </button>  
     <form [formGroup]="updateUserForm">
-    <!-- <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content"> -->
-       
+
           <div class="modal-body">
             <div class="row">
               <div class="form-group  col-md-12">
@@ -121,7 +126,7 @@
               </div>
               <div class="form-group col-md-4">
                 <label class="control-label">Họ và tên</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.fullname" formControlName="fullname" 
+                <input class="form-control" type="text" required [(ngModel)]="editModal.fullName" formControlName="fullName" 
                   >
               </div>
               <div class="form-group col-md-4">
@@ -131,15 +136,27 @@
               </div>
               <div class="form-group  col-md-4">
                 <label class="control-label">Số điện thoại</label>
-                <input class="form-control" type="number" required [(ngModel)]="editModal.phone"  formControlName="phone">
+                <input class="form-control" type="text" required [(ngModel)]="editModal.phone"  formControlName="phone">
               </div>
               <div class="form-group col-md-4">
-                <label class="control-label">Địa chỉ email</label>
+                <label class="control-label">Email</label>
                 <input class="form-control" type="text" required [(ngModel)]="editModal.email" formControlName="email">
-              </div>                 
+              </div>    
+              <div class="form-group col-md-4">
+                <label class="control-label">Địa chỉ</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.address" formControlName="address">
+              </div>  
+              <div class="form-group col-md-4">
+                <label class="control-label">Ngày sinh</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.birthday" formControlName="birthday">
+              </div>   
+              <div class="form-group col-md-4">
+                <label class="control-label">Giới tính</label>
+                <input class="form-control" type="text" required [(ngModel)]="editModal.sex" formControlName="sex">
+              </div>           
               <div class="form-group col-md-4">
                 <label class="control-label">Chức vụ</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.position" formControlName="position" 
+                <input class="form-control" type="text" required [(ngModel)]="editModal.role" formControlName="role" 
                   >
               </div>
               
