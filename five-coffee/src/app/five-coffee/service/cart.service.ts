@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
-
+const API_URL = 'http://localhost:8080/api/staff/';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,7 +27,14 @@ export class CartService {
        alert("Error while fetching the cart Details");
      })
    }
+   getCheckoutDetailsByUser(){
+    this.http.postRequestWithToken("api/staff/getCheckoutsByUserId",{}).subscribe((data:any)=>{
 
+    
+    },error=>{
+      alert("Error while fetching the checkout Details");
+    })
+  }
 
   addCart(obj:any){
     //this.cartServiceEvent.next({"status":"completed"})//emitter

@@ -28,8 +28,7 @@
                 </div>
 
                 <div class="row featured__filter" style="justify-content: flex-start">
-                    <div class="col-lg-3  col-sm-6" 
-                    *ngFor="let p of listProducts 
+                    <div class="col-lg-3  col-sm-6" *ngFor="let p of listProducts 
                     | searchFilter: searchText
                 
                     | paginate: {
@@ -39,24 +38,26 @@
                         };
                         let i = index" [class.active]="i == 1">
                         <div class="box_" style="height: 227px;">
-                           
-                                <div class="img_box">
-                                    <img src="{{p.img}}" alt="123" style="width: 90%; height: 150px;">
-                                </div>
-                                <div class="text-center">
-                                    <span>{{p.name}}</span>
-                                   
-                                </div>
-                                <div class="text-center">
-                                    <span>{{p.price}}</span>
-                                    
-                                </div>
-                                <div class="hoveradd" style="z-index: 100;;background: #5f9ea0; text-align: center; font-size: larger;border-radius: 2px;">
-                                    <!-- <button (click)="addCart(p)" type="submit" class="w3ls-cart">Add to cart</button> -->
-                                    <a href=""><i class="fa fa-shopping-cart" style="margin-right: 15px;"></i></a>
-                                    <input (click)="addCart(p)" style="border: aliceblue; background: #5f9ea0;"  type="submit" class="w3ls-cart hoverButton" value="Add to cart">
-                                </div>
-                           
+
+                            <div class="img_box">
+                                <img src="{{p.img}}" alt="123" style="width: 90%; height: 150px;">
+                            </div>
+                            <div class="text-center">
+                                <span>{{p.name}}</span>
+
+                            </div>
+                            <div class="text-center">
+                                <span>{{p.price}}</span>
+
+                            </div>
+                            <div class="hoveradd"
+                                style="z-index: 100;;background: #5f9ea0; text-align: center; font-size: larger;border-radius: 2px;">
+                                <!-- <button (click)="addCart(p)" type="submit" class="w3ls-cart">Add to cart</button> -->
+                                <a href=""><i class="fa fa-shopping-cart" style="margin-right: 15px;"></i></a>
+                                <input (click)="addCart(p)" style="border: aliceblue; background: #5f9ea0;"
+                                    type="submit" class="w3ls-cart hoverButton" value="Add to cart">
+                            </div>
+
                         </div>
 
                     </div>
@@ -81,7 +82,7 @@
                             </option>
                         </select>
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
-                       
+
                     </div>
                 </div>
                 <br>
@@ -140,103 +141,94 @@
 
                 </div>
                 <div class="d-flex justify-content-center payment ">
-                    <button  style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter" (click)="checkoutCart()">
+                    <button style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal"
+                        data-target="#exampleModalCenter" (click)="checkoutCart()">
                         Thanh toán
-                      </button>
-                      
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" style="margin: auto" role="document">
-                          <div class="modal-content" style="width: 80%;">
-                            <div class="modal-header" style="text-align: center; display: block;"  >
-                              <h5 class="modal-title" id="exampleModalLongTitle">Five-Coffee</h5>
-                             
-                                <div style="font-size: 30px; margin: 10px 20px;"><b>HÓA ĐƠN THANH TOÁN</b></div>
-                                <div style="width: 90%; margin: auto;">
+                            <div class="modal-content" style="width: 80%;" *ngFor="let b of listBill">
+                                <div class="modal-header" style="text-align: center; display: block;">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Five-Coffee</h5>
+
+                                    <div style="font-size: 30px; margin: 10px 20px;"><b>HÓA ĐƠN THANH TOÁN</b></div>
+                                    <div style="width: 90%; margin: auto;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <div class="popupDonHang">Nhân viên :   </div>
+                                            <div class="popupDonHang">..... </div>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <div class="popupDonHang">Mã hoá đơn :  </div>
+                                            <div class="popupDonHang">{{b.id}} </div>
+                                        </div>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <div class="popupDonHang">Thời gian: </div>
+                                            <div class="popupDonHang">{{b.dateCreate}}</div>
+                                        </div>
+                                        <div
+                                            style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                            <div class="popupDonHang"> Hình thức : </div>
+                                            <div class="popupDonHang" style="margin-bottom: 20px;"><b> {{b.payment_type}}</b></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-body">
+                                    <table style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên</th>
+                                                <th class="text-center">
+                                                    Số lượng
+                                                </th>
+                                                <th>Giá</th>
+                                                <th>Tổng</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr class="hoverCol">
+                                                <td>{{b.orderItem}}</td>
+                                                <td style="text-align: center;">{{b.orderItem.quantity}}</td>
+                                                <td>{{b.orderItem.productPrice}} </td>
+                                                <td style="text-align: center">{{b.orderItem.price}}</td>
+                                            </tr>
+                                           
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="margin-top: 20px;">
+                                    <hr>
+                                    <b>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <div class="popupDonHang">TỔNG TIỀN: </div>
+                                            <div>24</div>
+                                            <div></div>
+                                            <div class="popupDonHang">{{b.totalPrice}} </div>
+                                        </div>
+                                    </b>
                                     <div style="display: flex; justify-content: space-between;">
-                                        <div class="popupDonHang">STT: </div>
-                                        <div class="popupDonHang">0003 </div>
+                                        <div class="popupDonHang">Nhận Tiền mặt: </div>
+                                        <div class="popupDonHang"><b>500.000 </b></div>
                                     </div>
                                     <div style="display: flex; justify-content: space-between;">
-                                        <div class="popupDonHang">Thời gian: </div>
-                                        <div class="popupDonHang">20:20:20 Ngày 08/8/2022 </div>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                                        <div class="popupDonHang">BÀN: </div>
-                                        <div class="popupDonHang" style="margin-bottom: 20px;"><b>12 </b></div>
+                                        <div class="popupDonHang">Tiền Thừa: </div>
+                                        <div class="popupDonHang"><b>60.000 </b></div>
                                     </div>
                                 </div>
-                                
-            
-                            </div>
-                            <div class="modal-body">
-                              <table style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Tên</th>
-                                        <th class="text-center">
-                                            Số lượng
-                                        </th>
-                                        <th>Giá</th>
-                                        <th>Tổng</th>
-                                    </tr>
-                                </thead>
-        
-                                <tbody>
-                                    <tr class="hoverCol" >
-                                        <td>Cà Phê Sữa</td>
-                                        <td style="text-align: center;">6</td>
-                                        <td>20.000 </td>
-                                        <td style="text-align: center">120.000</td>
-                                    </tr>
-                                    <tr class="hoverCol" >
-                                        <td>Cà Phê Sữa</td>
-                                        <td style="text-align: center;">6</td>
-                                        <td>20.000 </td>
-                                        <td style="text-align: center">120.000</td>
-                                    </tr>
-                                    <tr class="hoverCol" >
-                                        <td>Cà Phê Sữa</td>
-                                        <td style="text-align: center;">6</td>
-                                        <td>20.000 </td>
-                                        <td style="text-align: center">120.000</td>
-                                    </tr>
-                                    <tr class="hoverCol" >
-                                        <td>Cà Phê Sữa</td>
-                                        <td style="text-align: center;">6</td>
-                                        <td>20.000 </td>
-                                        <td style="text-align: center">120.000</td>
-                                    </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                            <div style="margin-top: 20px;">
-                                <hr>
-                                <b>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div class="popupDonHang">TỔNG TIỀN: </div>
-                                    <div>24</div>
-                                    <div></div>
-                                    <div class="popupDonHang">440.000 </div>
-                                </div>
-                            </b>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div class="popupDonHang">Nhận Tiền mặt: </div>
-                                    <div class="popupDonHang"><b>500.000 </b></div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div class="popupDonHang">Tiền Thừa: </div>
-                                    <div class="popupDonHang"><b>60.000 </b></div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">In Hóa Đơn</button>
                                 </div>
                             </div>
-                            
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">In Hóa Đơn</button>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>

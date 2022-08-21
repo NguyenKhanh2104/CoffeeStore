@@ -18,7 +18,7 @@ import { SideBarAdminComponent } from './component/admin/side-bar-admin/side-bar
 import { StaffAdminComponent } from './component/admin/staff/staff-admin/staff-admin.component';
 import { AddProductAdminComponent } from './component/admin/product/add-product-admin/add-product-admin.component';
 import { AddStaffAdminComponent } from './component/admin/staff/add-staff-admin/add-staff-admin.component';
-
+import { BillComponent } from './component/home/bill/bill.component';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { AddStaffAdminComponent } from './component/admin/staff/add-staff-admin/
     AddStaffAdminComponent,
     BodyHomeComponent,
     HeaderHomeComponent,
-    FooterHomeComponent
+    FooterHomeComponent,
+    BillComponent
     
   ],
   imports: [
@@ -46,6 +47,7 @@ import { AddStaffAdminComponent } from './component/admin/staff/add-staff-admin/
     FiveCoffeeRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+
   ],
   providers: [
 

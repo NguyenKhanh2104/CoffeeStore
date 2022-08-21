@@ -28,6 +28,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   providers: [
   ],
   exports: [HttpClientModule, NgxPaginationModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

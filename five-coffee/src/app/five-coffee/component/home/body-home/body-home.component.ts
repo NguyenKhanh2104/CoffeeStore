@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { OrderPipe } from 'ngx-order-pipe';
-import { isEmpty } from 'rxjs';
+import { isEmpty,map } from 'rxjs';
 import { CartService } from 'src/app/five-coffee/service/cart.service';
 import { CategoryService } from 'src/app/five-coffee/service/category.service';
+import { OrderService } from 'src/app/five-coffee/service/order.service';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
 import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.service';
 
@@ -15,6 +17,7 @@ export class BodyHomeComponent implements OnInit {
   listProducts: any[] = [];
   listCategory: any[] = [];
   page = 1;
+  listBill: any[] = [];
   selectedTeam = '';
   selectedType = '';
   category = '';
@@ -31,8 +34,8 @@ export class BodyHomeComponent implements OnInit {
   public cartObj: any = [];
   selectedg3 = ''
   cartTotalPrice: any;
-  constructor( private http: TokenStorageService,private orderpipe: OrderPipe, private productService: ProductService,
-    private categoryService: CategoryService,private cartService:CartService) { }
+  constructor(private httpClient:HttpClient,private orderservice: OrderService, private http: TokenStorageService, private orderpipe: OrderPipe, private productService: ProductService,
+    private categoryService: CategoryService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.show();
@@ -73,9 +76,9 @@ export class BodyHomeComponent implements OnInit {
     this.selectedTeam = value;
     this.category = this.selectedTeam;
   }
-  
+
   selectedArray = [
-    
+
     {
       id: 1,
       name: "Bàn 1"
@@ -89,10 +92,10 @@ export class BodyHomeComponent implements OnInit {
       name: "Bàn 3"
     }
   ]
-  
+
   onSelectedTypePay(value: any) {
     this.selectedType = value;
-   this.pay_type = value;
+    this.pay_type = value;
   }
   searchThis(data: any) {
     if (data == "") {
@@ -103,34 +106,34 @@ export class BodyHomeComponent implements OnInit {
       })
     }
   }
- 
+
   setNewProduct(id: any): void {
-    
-    if(id==1){
+
+    if (id == 1) {
       this.productService.getProducts().subscribe
-      (data => {
-        // console.log(data);
-        this.listProducts = this.orderpipe.transform(data, 'name');
-        this.listProducts = this.listProducts.filter(value => value.category === 1);
-      });
-    }else if(id==2){
+        (data => {
+          // console.log(data);
+          this.listProducts = this.orderpipe.transform(data, 'name');
+          this.listProducts = this.listProducts.filter(value => value.category === 1);
+        });
+    } else if (id == 2) {
       this.productService.getProducts().subscribe
-      (data => {
-        // console.log(data);
-        this.listProducts = this.orderpipe.transform(data, 'name');
-        this.listProducts = this.listProducts.filter(value => value.category === 2);
-      });
-      
-  }else{
-    this.show();
+        (data => {
+          // console.log(data);
+          this.listProducts = this.orderpipe.transform(data, 'name');
+          this.listProducts = this.listProducts.filter(value => value.category === 2);
+        });
+
+    } else {
+      this.show();
+    }
   }
-  }
-  addCart(cartProductObj:any){
+  addCart(cartProductObj: any) {
     var cartObj = {
-      "productId":cartProductObj.id,
-      "qty":"1",
-      "price":cartProductObj.price
-    }   
+      "productId": cartProductObj.id,
+      "qty": "1",
+      "price": cartProductObj.price
+    }
     this.cartService.addCart(cartObj);
     console.log(cartObj);
   }
@@ -219,34 +222,44 @@ export class BodyHomeComponent implements OnInit {
       alert("Error while fetching the cart Details");
     })
   }
+  arrays3: any = [];
   checkoutCart() {
     var cart_qty: any;
     if (this.http.getToken()) {
       this.cartService.cartServiceEvent.subscribe(data => {
         cart_qty = this.cartService.getQty();
       })
-      if(cart_qty==0){
+      if (cart_qty == 0) {
         alert("vui lòng thêm sản phẩm vào giỏ hàng")
       }
     }
     if (this.noteCheckout == "") {
       this.noteCheckout = "no note";
     }
-    
-      let request = {
-        "total_price": this.cartTotalPrice,
-        "pay_type": "Mang đi",
-        "note": this.noteCheckout,
-      }
+
+    let request = {
+      "total_price": this.cartTotalPrice,
+      "pay_type": "Mang đi",
+      "note": this.noteCheckout,
+    }
+
+    console.log(request);
+    this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
+      this.cartService.getCartDetailsByUser();
       
-      console.log(request);
-      this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
-        this.cartService.getCartDetailsByUser();
-       
-      }, error => {
-        alert("Error while fetching the cart Details");
+      this.orderservice.getBill().subscribe
+      (data => {
+        // console.log(data);
+        this.listBill = this.orderpipe.transform(data, 'id');
+        this.arrays3 = data;
+        console.log("LIST Bill", this.arrays3, typeof this.arrays3);
+  
       })
-    
+    }, error => {
+      alert("Error while fetching the cart Details");
+    })
+
   }
+ 
 }
 
