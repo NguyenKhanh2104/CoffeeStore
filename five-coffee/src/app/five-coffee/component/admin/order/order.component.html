@@ -16,6 +16,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
   <title>Quản lý nhân viên</title>
+  <style>
+    th {
+      width: fit-content;
+    }
+  </style>
 </head>
 
 <body class="app sidebar-mini rtl">
@@ -38,61 +43,61 @@
           <div class="tile-body">
 
             <div class="row element-button">
-              <div class="col-sm-2">
+              <!-- <div class="col-sm-2">
 
                 <a class="btn btn-add btn-sm" href="/admin/staff/add" [routerLink]="['/admin/staff/add/']"
                   title="Thêm"><i class="fas fa-plus"></i>
                   Tạo mới đơn hàng</a>
-              </div>
+              </div> -->
 
-              <div class="col-sm-2">
+              <!-- <div class="col-sm-2">
                 <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
                     class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
+              </div> -->
             </div>
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" 
-              id="sampleTable">
-              <thead>
-                <tr>
-                  <th width="10"><input type="checkbox" id="all"></th>
-                  <th>ID Order</th>
-                  <th width="150">Status</th>
-                  <th width="20">Note</th>
-                  <th>Payment_type</th>
-                  <th>Delivery_Address</th>
-                  <th>User_id</th>
-                  <th width="100">totalPrice</th>
-                  <th>DateCreate</th>
-                                
-                </tr>
-              </thead>
+            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:100%">
+              <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
+                id="sampleTable">
+                <thead>
+                  <tr>
+                    <th width="10"><input type="checkbox" id="all"></th>
+                    <th>Mã hoá đơn</th>
+                    <th width="20">Ghi chú </th>
+                    <th>Hình thức </th>
+                    <th>Nhân viên thực hiện </th>
+                    <th width="100">Tổng hoá đơn </th>
+                    <th>Ngày tạo </th>
+                    <th>Tác vụ</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <!-- {{.log(this.arrays)}} -->
-                <tr *ngFor="let o of listOrder">
+                <tbody>
+                  <!-- {{.log(this.arrays)}} -->
+                  <tr *ngFor="let o of listOrder">
 
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td>{{o.idOrder}}</td>
-                  <td>{{o.status}}</td>
-                  <td>{{o.note}}</td>
-                  <td>{{o.payment_type}}</td>
-                  <th>{{o.delivery_address}}</th>
-                  <th>{{o.user_id}}</th>
-                  <th>{{o.totalPrice}}</th>
-                  <th>{{o.dateCreate}}</th>
-                
-                  <td class="table-td-center">
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal"  ><i
-                        class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                    ><i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                    <td>{{o.id}}</td>
+                    <td>{{o.note}}</td>
+                    <td>{{o.payment_type}}</td>
+                    <th>{{o.fullName}}</th>
+                    <th>{{o.totalPrice}}</th>
+                    <th>{{o.dateCreate}}</th>
+
+                    <td class="table-td-center" style="display:flex;border: none;justify-content: space-around;">
+                      <button style="justify-content:center" class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                        data-toggle="modal" (click)="openModalWithClass1(template)" (click)="editOrder(o)" (click)="showOrderItem(o)" ><i
+                          class="fas fa-edit" style="font-size: 20px"></i>
+                      </button>
+                      <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" (click)="removeOrder(o)"><i
+                          class="fas fa-trash-alt" style="font-size: 20px"></i>
+                      </button>
+
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -102,63 +107,96 @@
 
   <ng-template #template class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
     data-backdrop="static" data-keyboard="false">
-    <button type="button" class="close pull-right" aria-label="Close" >  
-      <span aria-hidden="true">×</span>  
-    </button>  
+    <button type="button" class="close pull-right" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
     <form [formGroup]="updateUserForm">
-    <!-- <div class="modal-dialog modal-dialog-centered" role="document">
+      <!-- <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content"> -->
-       
-          <div class="modal-body">
-            <div class="row">
-              <div class="form-group  col-md-12">
-                <span class="thong-tin-thanh-toan">
-                  <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-4">
-                <label class="control-label">ID nhân viên</label>
-                <input class="form-control" type="text" required 
-                  >
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Họ và tên</label>
-                <input class="form-control" type="text" required 
-                  >
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Username</label>
-                <input class="form-control" type="text" required 
-                  >
-              </div>
-              <div class="form-group  col-md-4">
-                <label class="control-label">Số điện thoại</label>
-                <input class="form-control" type="number" required>
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Địa chỉ email</label>
-                <input class="form-control" type="text" required >
-              </div>                 
-              <div class="form-group col-md-4">
-                <label class="control-label">Chức vụ</label>
-                <input class="form-control" type="text" required  
-                  >
-              </div>
-              
-            </div>
-            
-            <BR>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group  col-md-12">
+            <span class="thong-tin-thanh-toan">
+              <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+            </span>
           </div>
-      
-        <div class="modal-footer">
-          <!-- <button (click)="updateUser()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
-          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>   -->
         </div>
-      <!-- </div>
-    </div> -->
-  </form>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label class="control-label">Mã hoá đơn</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.id"  disabled
+            value="{{editModal.id}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Ghi chú</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.note" formControlName="note"
+            value="{{editModal.note}}" >
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Hình thức </label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.payment_type" formControlName="payment_type"
+            value="{{editModal.payment_type}}" >
+          </div>
+          <div class="form-group  col-md-4">
+            <label class="control-label">Nhân viên thực hiện </label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.fullName"  disabled
+            value="{{editModal.fullName}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Tổng hoá đơn</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.totalPrice"  formControlName="totalPrice"
+            value="{{editModal.totalPrice}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Ngày tạo</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.dateCreate" disabled
+            value="{{editModal.dateCreate}}">
+          </div>
+          <div class="form-group col-md-12">
+            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
+                id="sampleTable">
+                <thead>
+                  <tr>
+                    
+                    <th>Tên sản phẩm</th>
+                    <th width="20">Số lượng</th>
+                    <th>Giá sản phẩm</th>
+                    <th>Tổng giá </th>
+                    
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of listOrderItem">
+                    <td>{{item.productName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.productPrice}}</td>
+                    <th>{{item.price}}</th>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <!-- <td></td>
+                    <td>{{totalQuantity}}</td>
+                    <td></td>
+                    <td>{{totalPrice}}</td> -->
+                  </tr>
+                </tfoot>
+              </table>
+          </div>
+
+        </div>
+
+        <BR>
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="updateOrder()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
+          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
+      </div>
+      
+    </form>
   </ng-template>
 
 

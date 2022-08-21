@@ -8,11 +8,11 @@
                 <div class=" d-flex justify-content-center mt-4 ">
 
                     <div class="col-sm-4 d-flex">
-                        <select #selectElem (change)="setNewProduct(selectElem.value)">
-                            <option [defaultSelected]="selectElem">Tất cả</option>
-                            <option *ngFor="let c of listCategory" [value]="c.id">
-                                {{c.name}}
-                            </option>
+                        <select #abc (change)="onSelected(abc.value)">
+                            <option default>Pick a team</option>
+                            <option>Lakers</option>
+                            <option>Miami</option>
+                            <option>Cleveland</option>
                         </select>
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
                     </div>
@@ -53,7 +53,7 @@
                             <div class="hoveradd"
                                 style="z-index: 100;;background: #5f9ea0; text-align: center; font-size: larger;border-radius: 2px;">
                                 <!-- <button (click)="addCart(p)" type="submit" class="w3ls-cart">Add to cart</button> -->
-                                <a href=""><i class="fa fa-shopping-cart" style="margin-right: 15px;"></i></a>
+                                <a><i class="fa fa-shopping-cart" style="margin-right: 15px;"></i></a>
                                 <input (click)="addCart(p)" style="border: aliceblue; background: #5f9ea0;"
                                     type="submit" class="w3ls-cart hoverButton" value="Add to cart">
                             </div>
@@ -75,11 +75,11 @@
                 style="background-color: cadetblue; width: 36%;height: 610px;border-radius: 10px; padding-bottom: 20px; margin: 0; padding-left: 10px; padding-right: 10px; position: relative;">
                 <div class="mt-sm-2">
                     <div class="col-sm-4 d-flex">
-                        <select #selectElem2 (change)="onSelectedTypePay(selectElem2.value)">
-                            <option [defaultSelected]="selectElem2">Mang đi</option>
-                            <option *ngFor="let c of selectedArray" [value]="c.name">
-                                {{c.name}}
-                            </option>
+                        <select #teams (change)="onSelected(teams.value)">
+                            <option default>Mang đi</option>
+                            <option>Bàn 1</option>
+                            <option>Bàn 2</option>
+                            <option>Bàn 3</option>
                         </select>
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
 
@@ -133,7 +133,7 @@
                     <input style="height: 80%;width: 50%;margin-top: 5px" [(ngModel)]="noteCheckout">
                     <div>
                         <p style="margin-left: 25%"> Tổng tiền : ${{cartTotalPrice}}</p>
-                        <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;">
+                        <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;" [(ngModel)]="moneyFromCus" >
                         </p>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                                     <div style="width: 90%; margin: auto;">
                                         <div style="display: flex; justify-content: space-between;">
                                             <div class="popupDonHang">Nhân viên :   </div>
-                                            <div class="popupDonHang">..... </div>
+                                            <div class="popupDonHang">{{b.fullName}} </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between;">
                                             <div class="popupDonHang">Mã hoá đơn :  </div>
@@ -171,7 +171,7 @@
                                         <div
                                             style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                                             <div class="popupDonHang"> Hình thức : </div>
-                                            <div class="popupDonHang" style="margin-bottom: 20px;"><b> {{b.payment_type}}</b></div>
+                                            <div class="popupDonHang" style="margin-bottom: 20px;"> {{b.payment_type}}</div>
                                         </div>
                                     </div>
 
@@ -190,12 +190,12 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody *ngFor="let i of listBillItem">
                                             <tr class="hoverCol">
-                                                <td>{{b.orderItem}}</td>
-                                                <td style="text-align: center;">{{b.orderItem.quantity}}</td>
-                                                <td>{{b.orderItem.productPrice}} </td>
-                                                <td style="text-align: center">{{b.orderItem.price}}</td>
+                                                <td class="nameItem" style=" text-align: justify">{{i.productName}}</td>
+                                                <td style="text-align: center;">{{i.quantity}}</td>
+                                                <td>{{i.productPrice}} </td>
+                                                <td style="text-align: center">{{i.price}}</td>
                                             </tr>
                                            
                                            
@@ -207,24 +207,28 @@
                                     <b>
                                         <div style="display: flex; justify-content: space-between;">
                                             <div class="popupDonHang">TỔNG TIỀN: </div>
-                                            <div>24</div>
+                                            <div class="totalQuantity" style="margin-left: 25%">{{b.quantity}}</div>
                                             <div></div>
-                                            <div class="popupDonHang">{{b.totalPrice}} </div>
+                                            <div class="popupDonHang totalPrice">{{b.totalPrice}} </div>
                                         </div>
                                     </b>
                                     <div style="display: flex; justify-content: space-between;">
                                         <div class="popupDonHang">Nhận Tiền mặt: </div>
-                                        <div class="popupDonHang"><b>500.000 </b></div>
+                                        <div class="popupDonHang"><b>{{moneyFromCus}}</b></div>
                                     </div>
                                     <div style="display: flex; justify-content: space-between;">
                                         <div class="popupDonHang">Tiền Thừa: </div>
-                                        <div class="popupDonHang"><b>60.000 </b></div>
+                                        <div class="popupDonHang"><b>{{moneyPayCus}}</b></div>
+                                    </div>
+                                    <div>
+                                        <div class="" style="text-align: justify">Ghi chú : <b>{{noteCheckout}}</b> </div>
+                                        
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">In Hóa Đơn</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeBill()">Close</button>
+                                    <button type="button" class="btn btn-primary" (click)="closeBill()">In Hóa Đơn</button>
                                 </div>
                             </div>
                         </div>

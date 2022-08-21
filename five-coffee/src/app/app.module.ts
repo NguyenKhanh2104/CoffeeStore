@@ -12,6 +12,7 @@ import { OrderModule } from "ngx-order-pipe";
 import { FilterPipeModule } from "ngx-filter-pipe";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { ModalModule } from 'ngx-bootstrap/modal';  
+// import { NgSelectModule } from "@ng-select/ng-select";
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   imports: [
     BrowserModule,
     OrderModule,
+    // NgSelectModule,
     FilterPipeModule,
     ModalModule.forRoot(),  
     Ng2SearchPipeModule,

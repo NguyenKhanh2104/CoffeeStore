@@ -18,11 +18,14 @@ export class BodyHomeComponent implements OnInit {
   listCategory: any[] = [];
   page = 1;
   listBill: any[] = [];
+  listBillItem: any[] = [];
   selectedTeam = '';
   selectedType = '';
   category = '';
   count = 0;
   cart_qty = 0;
+  moneyFromCus =0;
+  moneyPayCus : any;
   noteCheckout = "";
   tableSize = 8;
   id: any;
@@ -30,17 +33,19 @@ export class BodyHomeComponent implements OnInit {
   pay_type = "";
   searchText: any = '';
   searchKey: any = '';
+
   data = '';
   public cartObj: any = [];
   selectedg3 = ''
   cartTotalPrice: any;
+  test = 'Mang đi'
   constructor(private httpClient:HttpClient,private orderservice: OrderService, private http: TokenStorageService, private orderpipe: OrderPipe, private productService: ProductService,
     private categoryService: CategoryService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.show();
     this.showCategory();
-    this.onSelected(this.data);
+    // this.onSelected(this.selectedTeam);
     this.getCartDetailsByUser();
     //below function will be triggerd from when removing and qty  is changing..
     this.cartService.cartServiceEvent.subscribe(data => {
@@ -72,31 +77,24 @@ export class BodyHomeComponent implements OnInit {
     this.page = event;
     this.show();
   }
-  onSelected(value: any) {
-    this.selectedTeam = value;
-    this.category = this.selectedTeam;
-  }
+   
+  // selectedArray = [
 
-  selectedArray = [
+  //   {
+  //     id: 1,
+  //     name: "Bàn 1"
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Bàn 2"
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Bàn 3"
+  //   }
+  // ]
 
-    {
-      id: 1,
-      name: "Bàn 1"
-    },
-    {
-      id: 2,
-      name: "Bàn 2"
-    },
-    {
-      id: 3,
-      name: "Bàn 3"
-    }
-  ]
-
-  onSelectedTypePay(value: any) {
-    this.selectedType = value;
-    this.pay_type = value;
-  }
+  
   searchThis(data: any) {
     if (data == "") {
       this.ngOnInit();
@@ -222,8 +220,14 @@ export class BodyHomeComponent implements OnInit {
       alert("Error while fetching the cart Details");
     })
   }
+  onSelected(value:string): void {
+		this.selectedTeam = value;
+    // alert(this.selectedTeam);
+	}
   arrays3: any = [];
+  arrays4: any = [];
   checkoutCart() {
+    
     var cart_qty: any;
     if (this.http.getToken()) {
       this.cartService.cartServiceEvent.subscribe(data => {
@@ -233,16 +237,18 @@ export class BodyHomeComponent implements OnInit {
         alert("vui lòng thêm sản phẩm vào giỏ hàng")
       }
     }
-    if (this.noteCheckout == "") {
-      this.noteCheckout = "no note";
-    }
-
+    // if (this.noteCheckout == "") {
+    //   this.noteCheckout = "no note";
+    // }
+    
     let request = {
       "total_price": this.cartTotalPrice,
-      "pay_type": "Mang đi",
+      "pay_type": this.selectedTeam,
       "note": this.noteCheckout,
     }
-
+    if(this.selectedTeam==""){
+      request.pay_type = "Mang đi";
+    }
     console.log(request);
     this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
       this.cartService.getCartDetailsByUser();
@@ -253,13 +259,25 @@ export class BodyHomeComponent implements OnInit {
         this.listBill = this.orderpipe.transform(data, 'id');
         this.arrays3 = data;
         console.log("LIST Bill", this.arrays3, typeof this.arrays3);
-  
+        this.orderservice.getBillItem().subscribe
+        (data2 => {
+          // console.log(data);
+          this.listBillItem = this.orderpipe.transform(data2, 'product_id');
+          this.arrays4 = data2;
+          console.log("LIST BillItem", this.arrays4, typeof this.arrays4);
+            
+        })
       })
+      this.moneyFromCus;
+      this.moneyPayCus= this.moneyFromCus - this.cartTotalPrice;
     }, error => {
       alert("Error while fetching the cart Details");
     })
 
   }
- 
+  closeBill(){
+    this.moneyFromCus = 0;
+    window.location.assign('http://localhost:4200/home')
+  }
 }
 
