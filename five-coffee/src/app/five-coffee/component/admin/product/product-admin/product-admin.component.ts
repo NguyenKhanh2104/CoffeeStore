@@ -3,6 +3,7 @@ import { OrderPipe } from 'ngx-order-pipe';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
+import { getValueInRange } from '@ng-bootstrap/ng-bootstrap/util/util';
 @Component({
   selector: 'app-product-admin',
   templateUrl: './product-admin.component.html',
@@ -71,7 +72,8 @@ export class ProductAdminComponent implements OnInit {
       category: value.category,
 
     }
-    
+    console.log(value.description),
+    console.log(value.name),
     this.productService.getUpdateProduct(productObj, this.editModal.id).subscribe(
       (res =>{
         console.log("có vô đây không")

@@ -8,11 +8,11 @@
                 <div class=" d-flex justify-content-center mt-4 ">
 
                     <div class="col-sm-4 d-flex">
-                        <select #abc (change)="onSelected(abc.value)">
-                            <option default>Pick a team</option>
-                            <option>Lakers</option>
-                            <option>Miami</option>
-                            <option>Cleveland</option>
+                        <select #selectElem (change)="setNewProduct(selectElem.value)">
+                            <option [defaultSelected]="selectElem">Tất cả</option>
+                            <option *ngFor="let c of listCategory" [value]="c.id">
+                                {{c.name}}
+                            </option>
                         </select>
                         <span class="ml-3" style="border: 1px soild #534543;"><i class="fa fa-filter"></i></span>
                     </div>
@@ -152,7 +152,7 @@
                         <div class="modal-dialog modal-dialog-centered" style="margin: auto" role="document">
                             <div class="modal-content" style="width: 80%;" *ngFor="let b of listBill">
                                 <div class="modal-header" style="text-align: center; display: block;">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Five-Coffee</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Kani-Coffee</h5>
 
                                     <div style="font-size: 30px; margin: 10px 20px;"><b>HÓA ĐƠN THANH TOÁN</b></div>
                                     <div style="width: 90%; margin: auto;">

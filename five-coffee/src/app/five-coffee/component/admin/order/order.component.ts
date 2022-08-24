@@ -11,18 +11,18 @@ import { OrderService } from 'src/app/five-coffee/service/order.service';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  updateUserForm!:FormGroup;
   listOrder: any[] = [];
-  listOrderItem:any;
+  listOrderItem: any;
   arrays: any = [];
   arrays2: any = [];
   totalQuantity = 0;
   totalPrice = 0;
   editModal: any;
-  listOrderId:any;
+  listOrderId: any;
+  userId: any;
   modalRef!: BsModalRef;
   updateOrderForm!: FormGroup;
-  constructor(private modalService: BsModalService,private formBuiler: FormBuilder,private orderService:OrderService,private orderpipe:OrderPipe) { }
+  constructor(private modalService: BsModalService, private formBuiler: FormBuilder, private orderService: OrderService, private orderpipe: OrderPipe) { }
 
   ngOnInit(): void {
     this.show();
@@ -33,8 +33,8 @@ export class OrderComponent implements OnInit {
       payment_type: [''],
       fullName: [''],
       totalPrice: [''],
-      dateCreate: ['']
-
+      dateCreate: [''],
+      userId: ['']
     })
   }
   show() {
@@ -43,11 +43,16 @@ export class OrderComponent implements OnInit {
         // console.log(data);
         this.listOrder = this.orderpipe.transform(data, 'id');
         this.arrays = data;
+        this.userId = this.arrays.get
+
+
         console.log("LIST Order", this.arrays, typeof this.arrays);
-        console.log(this.listOrder)
+        console.log(this.listOrder);
       })
   }
+
   updateOrder() {
+    console.log("id" + this.editModal.id);
     const { value } = this.updateOrderForm;
 
     const orderObj = {
@@ -57,17 +62,24 @@ export class OrderComponent implements OnInit {
       fullName: value.fullName,
       totalPrice: value.totalPrice,
       dateCreate: value.dateCreate,
-
+      userId:value.userId
     }
-    
-    this.orderService.getUpdateProduct(orderObj, this.editModal.id).subscribe(
-      (res =>{
-        console.log("có vô đây không")
-        console.log(res)
-      })
-    );
- 
-    
+    console.log(value.fullName),
+      console.log('note is ' + value.note),
+      console.log(value.totalPrice),
+      console.log('paymet ' + value.payment_type),
+      console.log(value.dateCreate),
+      console.log(orderObj.note),
+      console.log(orderObj.payment_type),
+      this.orderService.getUpdateOrder(orderObj, this.editModal.id).subscribe(
+        (res => {
+          console.log(orderObj.note)
+          console.log("có vô đây không")
+          console.log(res)
+        })
+      );
+
+
   }
   openModalWithClass1(template: TemplateRef<any>) {
     console.log("sdfasdf")
@@ -90,10 +102,10 @@ export class OrderComponent implements OnInit {
       })
     }
   }
-  showOrderItem(listOrderId:any){
+  showOrderItem(listOrderId: any) {
     this.orderService.getOrderItem(listOrderId.id).subscribe(
-      res2 =>{
-        this.listOrderItem= this.orderpipe.transform(res2, 'productName');
+      res2 => {
+        this.listOrderItem = this.orderpipe.transform(res2, 'productName');
         this.arrays2 = res2;
         // this.totalQuantity +=this.arrays2.quantity;
         // this.totalPrice +=this.arrays2.price;

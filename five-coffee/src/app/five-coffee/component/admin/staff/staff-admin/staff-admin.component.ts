@@ -42,7 +42,7 @@ export class StaffAdminComponent implements OnInit {
     this.userService.getUsers().subscribe
       (data => {
         // this.listUser = JSON.parse(data);
-        this.listUser = this.orderpipe.transform(data, 'username');
+        this.listUser = this.orderpipe.transform(data, 'id');
         this.arrays = data;
         console.log(this.listUser, typeof this.listUser);
       })

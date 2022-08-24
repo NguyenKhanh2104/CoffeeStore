@@ -66,7 +66,7 @@
                     <th>Hình thức </th>
                     <th>Nhân viên thực hiện </th>
                     <th width="100">Tổng hoá đơn </th>
-                    <th>Ngày tạo </th>
+                    <th>Ngày cập nhật </th>
                     <th>Tác vụ</th>
                   </tr>
                 </thead>
@@ -110,7 +110,7 @@
     <button type="button" class="close pull-right" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
-    <form [formGroup]="updateUserForm">
+    <form [formGroup]="updateOrderForm">
       <!-- <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content"> -->
 
@@ -140,8 +140,8 @@
           </div>
           <div class="form-group  col-md-4">
             <label class="control-label">Nhân viên thực hiện </label>
-            <input class="form-control" type="text" required [(ngModel)]="editModal.fullName"  disabled
-            value="{{editModal.fullName}}">
+            <input class="form-control" type="text" required [(ngModel)]="editModal.fullName" [(ngModel)]="editModal.userId" disabled
+            value="{{editModal.fullName}}-{{editModal.userId}}">
           </div>
           <div class="form-group col-md-4">
             <label class="control-label">Tổng hoá đơn</label>
@@ -149,7 +149,7 @@
             value="{{editModal.totalPrice}}">
           </div>
           <div class="form-group col-md-4">
-            <label class="control-label">Ngày tạo</label>
+            <label class="control-label">Ngày cập nhật</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.dateCreate" disabled
             value="{{editModal.dateCreate}}">
           </div>

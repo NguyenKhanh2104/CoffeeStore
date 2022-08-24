@@ -21,8 +21,8 @@ export class OrderService {
   getAllOrder(): Observable<any> {
     return this.http.get(API_URL2 + 'allOrder');
   }
-  getUpdateProduct(data:any, orderId: any){
-    return this.http.put(`${API_URL2 +"updateOrder"}/${orderId}`, data).pipe(map(
+  getUpdateOrder(data:any, orderId: any){
+    return this.http.put(`${ 'http://localhost:8080/api/admin/updateOrder'}/${orderId}`, data).pipe(map(
       (reponse: any) =>{
         console.log("có update được ko")
         return reponse;

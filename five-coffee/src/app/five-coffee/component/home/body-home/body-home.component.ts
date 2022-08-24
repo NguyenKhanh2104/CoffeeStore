@@ -78,21 +78,21 @@ export class BodyHomeComponent implements OnInit {
     this.show();
   }
    
-  // selectedArray = [
+  selectedArray = [
 
-  //   {
-  //     id: 1,
-  //     name: "Bàn 1"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Bàn 2"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Bàn 3"
-  //   }
-  // ]
+    {
+      id: 1,
+      name: "Bàn 1"
+    },
+    {
+      id: 2,
+      name: "Bàn 2"
+    },
+    {
+      id: 3,
+      name: "Bàn 3"
+    }
+  ]
 
   
   searchThis(data: any) {
