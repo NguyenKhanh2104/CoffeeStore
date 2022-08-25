@@ -2,7 +2,7 @@
 <div class="">
 
     <div class="abc" style="margin-top: 30px;width: 90% ">
-        <div class="row" style="display:flex">
+        <div class="row" style="display:flex;width: 108%">
             <div class="col-sm-7"
                 style="margin-left: 5%;background-color: #e5ebe8;height: 610px;border-radius: 10px; padding-bottom: 30px;">
                 <div class=" d-flex justify-content-center mt-4 ">
@@ -133,7 +133,8 @@
                     <input style="height: 80%;width: 50%;margin-top: 5px" [(ngModel)]="noteCheckout">
                     <div>
                         <p style="margin-left: 25%"> Tổng tiền : ${{cartTotalPrice}}</p>
-                        <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;" [(ngModel)]="moneyFromCus" >
+                        <p style="margin-left: 11%"> Tiền khách đưa : <input style="width: 50%;height: fit-content;"
+                                [(ngModel)]="moneyFromCus">
                         </p>
                     </div>
                 </div>
@@ -141,7 +142,11 @@
 
                 </div>
                 <div class="d-flex justify-content-center payment ">
-                    <button style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal"
+                    <button *ngIf="!checkCartQty" style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal"
+                        data-target="" (click)="checkoutCart()">
+                        Thanh toán
+                    </button>
+                    <button *ngIf="checkCartQty" style="width: 30%;" type="button" class="btn btn-info" data-toggle="modal"
                         data-target="#exampleModalCenter" (click)="checkoutCart()">
                         Thanh toán
                     </button>
@@ -157,11 +162,11 @@
                                     <div style="font-size: 30px; margin: 10px 20px;"><b>HÓA ĐƠN THANH TOÁN</b></div>
                                     <div style="width: 90%; margin: auto;">
                                         <div style="display: flex; justify-content: space-between;">
-                                            <div class="popupDonHang">Nhân viên :   </div>
+                                            <div class="popupDonHang">Nhân viên : </div>
                                             <div class="popupDonHang">{{b.fullName}} </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between;">
-                                            <div class="popupDonHang">Mã hoá đơn :  </div>
+                                            <div class="popupDonHang">Mã hoá đơn : </div>
                                             <div class="popupDonHang">{{b.id}} </div>
                                         </div>
                                         <div style="display: flex; justify-content: space-between;">
@@ -171,7 +176,8 @@
                                         <div
                                             style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                                             <div class="popupDonHang"> Hình thức : </div>
-                                            <div class="popupDonHang" style="margin-bottom: 20px;"> {{b.payment_type}}</div>
+                                            <div class="popupDonHang" style="margin-bottom: 20px;"> {{b.payment_type}}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -197,8 +203,8 @@
                                                 <td>{{i.productPrice}} </td>
                                                 <td style="text-align: center">{{i.price}}</td>
                                             </tr>
-                                           
-                                           
+
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -221,14 +227,17 @@
                                         <div class="popupDonHang"><b>{{moneyPayCus}}</b></div>
                                     </div>
                                     <div>
-                                        <div class="" style="text-align: justify">Ghi chú : <b>{{noteCheckout}}</b> </div>
-                                        
+                                        <div class="" style="text-align: justify">Ghi chú : <b>{{noteCheckout}}</b>
+                                        </div>
+
                                     </div>
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeBill()">Close</button>
-                                    <button type="button" class="btn btn-primary" (click)="closeBill()">In Hóa Đơn</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                        (click)="closeBill()">Close</button>
+                                    <button type="button" class="btn btn-primary" (click)="closeBill()">In Hóa
+                                        Đơn</button>
                                 </div>
                             </div>
                         </div>

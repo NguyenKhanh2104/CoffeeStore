@@ -4,20 +4,23 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
 import { getValueInRange } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-product-admin',
   templateUrl: './product-admin.component.html',
   styleUrls: ['./product-admin.component.css']
 })
 export class ProductAdminComponent implements OnInit {
-  listProducts: any[] = [];
+  listProducts: any;
   arrays: any = [];
+  fileInfos: any;
   editModal: any;
   modalRef!: BsModalRef;
   updateProductForm!: FormGroup;
   constructor(private productService:ProductService,private formBuiler: FormBuilder, private modalService: BsModalService,  private orderpipe: OrderPipe) { }
 
   ngOnInit(): void {
+    this.fileInfos = this.productService.getFiles();
     this.show();
     this.updateProductForm = this.formBuiler.group({
 
@@ -32,14 +35,19 @@ export class ProductAdminComponent implements OnInit {
     })
   }
   show() {
-    this.productService.getProducts().subscribe
-      (data => {
-        // console.log(data);
-        this.listProducts = this.orderpipe.transform(data, 'id');
-        this.arrays = data;
-        console.log("LIST PRODUCT", this.arrays, typeof this.arrays);
-        console.log(this.listProducts)
-      })
+    this.listProducts = this.productService.getProducts();
+    // this.listProducts = this.orderpipe.transform(this.productService.getProducts(), 'id');
+    this.arrays = this.listProducts;
+    console.log("LIST PRODUCT", this.arrays, typeof this.arrays);
+    // this.productService.getProducts().subscribe
+    //   (data => {
+    //     // console.log(data);
+    //     this.listProducts = this.orderpipe.transform(data, 'id');
+    //     this.arrays = data;
+    //     console.log("LIST PRODUCT", this.arrays, typeof this.arrays);
+    //     console.log(this.listProducts)
+    //   })
+     
   }
   removeProduct(listBook: any) {
     var result = confirm("Bạn chắc chắn muốn xóa ");

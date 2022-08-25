@@ -11,6 +11,8 @@ export class LoginComponent implements OnInit {
 
   form: any = {};
   isLoggedIn = false;
+  checkLoggedInStaff = false;
+  checkLoggedInAdmin = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
@@ -22,6 +24,19 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      for (let index = 0; index < this.roles.length; index++) {
+
+        if (this.roles[index] == 'ROLE_USER') {
+          this.checkLoggedInStaff = true;
+          this.checkLoggedInAdmin = false;
+          // window.location.assign('http://localhost:4200/home')
+        }
+        if (this.roles[index] == 'ROLE_ADMIN') {
+          this.checkLoggedInAdmin = true;
+          this.checkLoggedInStaff = false;
+          // window.location.assign('http://localhost:4200/admin')
+        }
+      }
     }
   }
 
@@ -37,9 +52,13 @@ export class LoginComponent implements OnInit {
         for (let index = 0; index < this.roles.length; index++) {
 
           if (this.roles[index] == 'ROLE_USER') {
+            this.checkLoggedInStaff = true;
+            this.checkLoggedInAdmin = false;
             window.location.assign('http://localhost:4200/home')
           }
           if (this.roles[index] == 'ROLE_ADMIN') {
+            this.checkLoggedInAdmin = true;
+            this.checkLoggedInStaff = false;
             window.location.assign('http://localhost:4200/admin')
           }
         }

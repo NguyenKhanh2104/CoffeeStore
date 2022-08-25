@@ -42,4 +42,7 @@ export class ProductService {
     ))
   
   }
+  getFiles(): Observable<any> {
+    return this.http.get(`http://localhost:8080/api/admin/files`);
+  }
 }

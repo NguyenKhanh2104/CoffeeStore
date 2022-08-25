@@ -28,6 +28,7 @@ export class BodyHomeComponent implements OnInit {
   moneyPayCus : any;
   noteCheckout = "";
   tableSize = 8;
+  checkCartQty = false;
   id: any;
   sizeId = 1;
   pay_type = "";
@@ -232,14 +233,13 @@ export class BodyHomeComponent implements OnInit {
     if (this.http.getToken()) {
       this.cartService.cartServiceEvent.subscribe(data => {
         cart_qty = this.cartService.getQty();
+        this.checkCartQty = true;
       })
-      if (cart_qty == 0) {
-        alert("vui lòng thêm sản phẩm vào giỏ hàng")
-      }
+      
     }
-    // if (this.noteCheckout == "") {
-    //   this.noteCheckout = "no note";
-    // }
+    if (this.noteCheckout == "") {
+      this.noteCheckout = "no note";
+    }
     
     let request = {
       "total_price": this.cartTotalPrice,
@@ -250,6 +250,11 @@ export class BodyHomeComponent implements OnInit {
       request.pay_type = "Mang đi";
     }
     console.log(request);
+    if (cart_qty == 0) {
+      this.checkCartQty = false;
+      alert("vui lòng thêm sản phẩm vào giỏ hàng")
+    }else{
+      this.checkCartQty = true;
     this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
       this.cartService.getCartDetailsByUser();
       
@@ -272,7 +277,7 @@ export class BodyHomeComponent implements OnInit {
       this.moneyPayCus= this.moneyFromCus - this.cartTotalPrice;
     }, error => {
       alert("Error while fetching the cart Details");
-    })
+    })}
 
   }
   closeBill(){

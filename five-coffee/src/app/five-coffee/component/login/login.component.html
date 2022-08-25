@@ -71,6 +71,12 @@
   
       <div class="alert alert-success" *ngIf="isLoggedIn">
         Your Login is successful!
+        <div class="href" *ngIf="checkLoggedInStaff">
+          <a [routerLink]="['/home']">Đi đến trang chủ</a>
+        </div>
+        <div class="href" *ngIf="checkLoggedInAdmin">
+          <a [routerLink]="['/admin']">Đi đến trang quản lý</a>
+        </div>
       </div>
     </div>
   </div>
