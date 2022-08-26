@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body class="app sidebar-mini rtl">
     
@@ -183,21 +184,24 @@
           <div class="col-md-12">
             <div class="tile">
               <h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
-              <img  class="" src="https://cdn.vietnambiz.vn/2019/10/7/4cb50b7675bf3ad3f9672f45c6840682-15704452729671128921247.png" alt="">
+              <!-- <img  class="" src="https://cdn.vietnambiz.vn/2019/10/7/4cb50b7675bf3ad3f9672f45c6840682-15704452729671128921247.png" alt=""> -->
               <!-- <div class="embed-responsive embed-responsive-16by9">
                 <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
               </div> -->
+              <div id="chartContainer" style="height: 370px; width: 100%; margin:auto;"></div>
             </div>
           </div>
           <div></div>
           <div class="col-md-12">
             <div class="tile">
               <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
-              <img  class="" src="https://st.a1digihub.com/wp-content/uploads/2019/05/bieu-do-tron-1024x530.jpg" alt="">
+              <!-- <img  class="" src="https://st.a1digihub.com/wp-content/uploads/2019/05/bieu-do-tron-1024x530.jpg" alt=""> -->
 
               <!-- <div class="embed-responsive embed-responsive-16by9">
                 <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
               </div> -->
+              <div id="chartContainer1" style="height: 300px; width: 100%; margin:auto;"></div>
+              <div id="chartContainer2" style="height: 300px; width: 100%; margin:auto;"></div>
             </div>
           </div>
         </div>
@@ -209,6 +213,7 @@
 
     
   </main>
-
+  <!-- <div id="chartContainer" style="height: 370px; width: 100%; margin:auto;"></div> -->
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
