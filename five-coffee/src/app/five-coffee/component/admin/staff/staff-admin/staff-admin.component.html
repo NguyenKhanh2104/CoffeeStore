@@ -16,6 +16,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
   <title>Quản lý nhân viên</title>
+  <style>
+    /* table{
+      width: 800px;
+    } */
+    td {
+      width: fit-content;
+    }
+  </style>
 </head>
 
 <body class="app sidebar-mini rtl">
@@ -44,62 +52,69 @@
                   title="Thêm"><i class="fas fa-plus"></i>
                   Tạo mới nhân viên</a>
               </div>
+              <!-- <div class="">
 
-              <div class="col-sm-2">
+                <form class="form-inline">
+                  <input [(ngModel)]="searchText" name="search" class="form-control mr-sm-3 w-90" type="search"
+                    placeholder="Search" aria-label="Search">
+
+                </form>
+              </div> -->
+              <!-- <div class="col-sm-2">
                 <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
                     class="fas fa-trash-alt"></i> Xóa tất cả </a>
-              </div>
+              </div> -->
             </div>
-            <div style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:100%">
-            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
-              id="sampleTable">
-              <thead>
-                <tr>
-                  <th width="10"><input type="checkbox" id="all"></th>
-                  <th>ID nhân viên</th>
-                  <th>Họ và tên</th>
-                  <th width="150">Username</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th>Địa chỉ</th>
-                  <th>Ngày sinh</th>
-                  <th>Giới tính</th>
-                  <th>Chức vụ</th>
-                  <th width="100">Tính năng</th>
-                </tr>
-              </thead>
+            <div  style=" overflow-y:scroll; overflow-x:scroll;height: 530px;width:100%" >
+              <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
+                id="sampleTable">
+                <thead>
+                  <tr>
+                    <!-- <th width="10"><input type="checkbox" id="all"></th> -->
+                    <th>ID nhân viên</th>
+                    <th>Họ và tên</th>
+                    <th width="150">Username</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th width="150">Địa chỉ</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Chức vụ</th>
+                    <th width="100">Tính năng</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <!-- {{.log(this.arrays)}} -->
-                <tr *ngFor="let l of listUser;">
+                <tbody>
+                  <!-- {{.log(this.arrays)}} -->
+                  <tr *ngFor="let l of listUser">
 
-                  <td width="10"><input type="checkbox" name="check1" value="1"></td>
-                  <td>{{l.id}}</td>
-                  <td>{{l.fullName}}</td>
-                  <td>{{l.username}}</td>
-                  <td>{{l.phone}}</td>
-                  <td>{{l.email}}</td>
-                  <td>{{l.address}}</td>
-                  <td>{{l.birthday}}</td>
-                  <td>{{l.sex}}</td>
-                  <td>{{l.role}}</td>
-                  <td class="table-td-center" style="border: none;justify-content: space-around; ">
-                    <div style="display: flex;">
-                    <button style="justify-content:center" class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                    data-toggle="modal" (click)="openModalWithClass(template)" (click)="editUser(l)"><i
-                    class="fas fa-edit" style="font-size: 20px"></i>
-                    </button>
-                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                      (click)="removeUser(l)"><i class="fas fa-trash-alt" style="font-size: 20px"></i>
-                    </button>
-                  </div>
+                    <!-- <td width="10"><input type="checkbox" name="check1" value="1"></td> -->
+                    <td>{{l.id}}</td>
+                    <td>{{l.fullName}}</td>
+                    <td>{{l.username}}</td>
+                    <td>{{l.phone}}</td>
+                    <td>{{l.email}}</td>
+                    <td>{{l.address}}</td>
+                    <td>{{l.birthday}}</td>
+                    <td>{{l.sex}}</td>
+                    <td>{{l.role}}</td>
+                    <td class="table-td-center" style="border: none;justify-content: space-around; ">
+                      <div style="display: flex;">
+                        <button style="justify-content:center" class="btn btn-primary btn-sm edit" type="button"
+                          title="Sửa" id="show-emp" data-toggle="modal" (click)="openModalWithClass(template)"
+                          (click)="editUser(l)"><i class="fas fa-edit" style="font-size: 20px"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                          (click)="removeUser(l)"><i class="fas fa-trash-alt" style="font-size: 20px"></i>
+                        </button>
+                      </div>
 
 
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -109,73 +124,93 @@
 
   <ng-template #template class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
     data-backdrop="static" data-keyboard="false">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">  
-      <span aria-hidden="true">×</span>  
-    </button>  
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
     <form [formGroup]="updateUserForm">
 
-          <div class="modal-body">
-            <div class="row">
-              <div class="form-group  col-md-12">
-                <span class="thong-tin-thanh-toan">
-                  <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-md-4">
-                <label class="control-label">ID nhân viên</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.id"  disabled value="{{editModal.id}}"
-                  >
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Họ và tên</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.fullName" formControlName="fullName" 
-                  >
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Username</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.username" formControlName="username" 
-                  >
-              </div>
-              <div class="form-group  col-md-4">
-                <label class="control-label">Số điện thoại</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.phone"  formControlName="phone">
-              </div>
-              <div class="form-group col-md-4">
-                <label class="control-label">Email</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.email" formControlName="email">
-              </div>    
-              <div class="form-group col-md-4">
-                <label class="control-label">Địa chỉ</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.address" formControlName="address">
-              </div>  
-              <div class="form-group col-md-4">
-                <label class="control-label">Ngày sinh</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.birthday" formControlName="birthday">
-              </div>   
-              <div class="form-group col-md-4">
-                <label class="control-label">Giới tính</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.sex" formControlName="sex">
-              </div>           
-              <div class="form-group col-md-4">
-                <label class="control-label">Chức vụ</label>
-                <input class="form-control" type="text" required [(ngModel)]="editModal.role" formControlName="role" 
-                  >
-              </div>
-              
-            </div>
-            
-            <BR>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group  col-md-12">
+            <span class="thong-tin-thanh-toan">
+              <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+            </span>
           </div>
-      
-        <div class="modal-footer">
-          <button (click)="updateUser()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
-          <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
         </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label class="control-label">ID nhân viên</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.id" disabled
+              value="{{editModal.id}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Họ và tên</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.fullName"
+              formControlName="fullName">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Username</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.username"
+              formControlName="username">
+          </div>
+          <div class="form-group  col-md-4">
+            <label class="control-label">Số điện thoại</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.phone" formControlName="phone">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Email</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.email" formControlName="email">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Địa chỉ</label>
+            <input class="form-control" type="text" required [(ngModel)]="editModal.address" formControlName="address">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Ngày sinh</label>
+            <input class="form-control" placeholder="dd-MM-yyyy" type="text" required [(ngModel)]="editModal.birthday"
+              formControlName="birthday">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Giới tính</label>
+            <input class="form-control" type="text" placeholder="Nam/Nữ" required [(ngModel)]="editModal.sex"
+              formControlName="sex">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="control-label">Chức vụ</label>
+            <input class="form-control" type="text" placeholder="ROLE_ADMIN/ROLE_USER" required
+              [(ngModel)]="editModal.role" formControlName="role">
+          </div>
+          <label class="btn btn-default">
+            <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+          </label>
+
+          <button class="btn btn-success" style="width: 10%;margin-left: 1.5%" [disabled]="!selectedFiles"
+            (click)="uploadFiles()">
+            Upload
+          </button>
+          <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+            <span>{{ progressInfo.fileName }}</span>
+            <div class="progress">
+              <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                attr.aria-valuenow="{{ progressInfo.percentage }}" aria-valuemin="0" aria-valuemax="100"
+                [ngStyle]="{ width: progressInfo.percentage + '%' }">
+                {{ progressInfo.percentage }}%
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-light" role="alert">{{ message }}</div>
+        </div>
+
+        <BR>
+      </div>
+
+      <div class="modal-footer">
+        <button (click)="updateUser()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="closeModal()" (click)="modalRef.hide()">Close</button>
+      </div>
       <!-- </div>
     </div> -->
-  </form>
+    </form>
   </ng-template>
 
 

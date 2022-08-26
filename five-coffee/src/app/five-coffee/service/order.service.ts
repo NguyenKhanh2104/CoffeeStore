@@ -43,4 +43,7 @@ export class OrderService {
         return reponse;
       }))
   }
+  getTotalMoney(): Observable<any> {
+    return this.http.get(API_URL2 + 'totalMoneyInMonth');
+  }
 }

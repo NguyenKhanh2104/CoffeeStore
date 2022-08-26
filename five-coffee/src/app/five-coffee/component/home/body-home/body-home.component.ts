@@ -233,7 +233,12 @@ export class BodyHomeComponent implements OnInit {
     if (this.http.getToken()) {
       this.cartService.cartServiceEvent.subscribe(data => {
         cart_qty = this.cartService.getQty();
-        this.checkCartQty = true;
+        if(cart_qty ==0){
+          this.checkCartQty = false;
+        }else{
+          this.checkCartQty = true;
+        }
+        
       })
       
     }
@@ -252,7 +257,10 @@ export class BodyHomeComponent implements OnInit {
     console.log(request);
     if (cart_qty == 0) {
       this.checkCartQty = false;
-      alert("vui lòng thêm sản phẩm vào giỏ hàng")
+      var result = confirm("Vui lòng thêm sản phẩm vào giỏ hàng ");
+      if (result) {
+        window.location.assign('http://localhost:4200/home')
+      }
     }else{
       this.checkCartQty = true;
     this.http.postRequestWithToken("api/staff/checkout", request).subscribe((data: any) => {
@@ -284,5 +292,6 @@ export class BodyHomeComponent implements OnInit {
     this.moneyFromCus = 0;
     window.location.assign('http://localhost:4200/home')
   }
+  
 }
 

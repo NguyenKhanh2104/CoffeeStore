@@ -60,7 +60,7 @@
                 id="sampleTable">
                 <thead>
                   <tr>
-                    <th width="10"><input type="checkbox" id="all"></th>
+                  
                     <th>Mã hoá đơn</th>
                     <th width="20">Ghi chú </th>
                     <th>Hình thức </th>
@@ -75,7 +75,7 @@
                   <!-- {{.log(this.arrays)}} -->
                   <tr *ngFor="let o of listOrder">
 
-                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                  
                     <td>{{o.id}}</td>
                     <td>{{o.note}}</td>
                     <td>{{o.payment_type}}</td>
@@ -107,9 +107,7 @@
 
   <ng-template #template class="modal fade" id="ModalUP" tabindex="-1" role="dialog" aria-hidden="true"
     data-backdrop="static" data-keyboard="false">
-    <button type="button" class="close pull-right" aria-label="Close">
-      <span aria-hidden="true">×</span>
-    </button>
+   
     <form [formGroup]="updateOrderForm">
       <!-- <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content"> -->
@@ -118,7 +116,7 @@
         <div class="row">
           <div class="form-group  col-md-12">
             <span class="thong-tin-thanh-toan">
-              <h5>Chỉnh sửa thông tin nhân viên cơ bản</h5>
+              <h5>Chỉnh sửa thông tin hoá đơn</h5>
             </span>
           </div>
         </div>
@@ -135,7 +133,7 @@
           </div>
           <div class="form-group col-md-4">
             <label class="control-label">Hình thức </label>
-            <input class="form-control" type="text" required [(ngModel)]="editModal.payment_type" formControlName="payment_type"
+            <input class="form-control" type="text" required readonly [(ngModel)]="editModal.payment_type" formControlName="payment_type"
             value="{{editModal.payment_type}}" >
           </div>
           <div class="form-group  col-md-4">
@@ -145,7 +143,7 @@
           </div>
           <div class="form-group col-md-4">
             <label class="control-label">Tổng hoá đơn</label>
-            <input class="form-control" type="text" required [(ngModel)]="editModal.totalPrice"  formControlName="totalPrice"
+            <input class="form-control" type="text" required readonly [(ngModel)]="editModal.totalPrice"  formControlName="totalPrice"
             value="{{editModal.totalPrice}}">
           </div>
           <div class="form-group col-md-4">
@@ -191,7 +189,7 @@
         <BR>
       </div>
 
-      <div class="modal-footer">
+      <div class="modal-footer">  <button  (click)="updateOrder()" (click)="modalRef.hide()" class="btn btn-save" type="button">In lại</button>
         <button (click)="updateOrder()" (click)="modalRef.hide()" class="btn btn-save" type="button">Cập nhật</button>
           <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>  
       </div>

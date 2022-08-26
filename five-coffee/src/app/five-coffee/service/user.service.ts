@@ -60,5 +60,8 @@ export class UserService {
       }
     ))
   }
+  getImageUser(id:any):Observable<any>{
+    return this.http.get(API_URL + 'getImageUser/'+id);
+  }
 }
 
