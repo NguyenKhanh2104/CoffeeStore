@@ -5,6 +5,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
 import { getValueInRange } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { Observable } from 'rxjs';
+import { UploadFilesService } from 'src/app/five-coffee/service/upload-files.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-product-admin',
   templateUrl: './product-admin.component.html',
@@ -13,11 +15,14 @@ import { Observable } from 'rxjs';
 export class ProductAdminComponent implements OnInit {
   listProducts: any;
   arrays: any = [];
-  fileInfos: any;
   editModal: any;
   modalRef!: BsModalRef;
   updateProductForm!: FormGroup;
-  constructor(private productService:ProductService,private formBuiler: FormBuilder, private modalService: BsModalService,  private orderpipe: OrderPipe) { }
+  selectedFiles: any;
+  progressInfos? : any;
+  message = '';
+  fileInfos!: Observable<any>;
+  constructor(private uploadService:UploadFilesService,private productService:ProductService,private formBuiler: FormBuilder, private modalService: BsModalService,  private orderpipe: OrderPipe) { }
 
   ngOnInit(): void {
     this.fileInfos = this.productService.getFiles();
@@ -26,9 +31,9 @@ export class ProductAdminComponent implements OnInit {
 
       productId: [''],
       name: [''],
-      img: [''],
+      // img: [''],
       description: [''],
-      qty: [''],
+      // qty: [''],
       price: [''],
       category: [''],
 
@@ -75,10 +80,10 @@ export class ProductAdminComponent implements OnInit {
     const productObj = {
       id: value.productId,
       name: value.name,
-      img: value.img,
+      // img: value.img,
       description: value.description,
       price: value.price,
-      qty: value.qty,
+      // qty: value.qty,
       category: value.category,
 
     }
@@ -90,6 +95,7 @@ export class ProductAdminComponent implements OnInit {
         console.log(res)
       })
     );
+    window.location.assign('http://localhost:4200/admin/product')
   }
 
   openModalWithClass1(template: TemplateRef<any>) {
@@ -98,5 +104,53 @@ export class ProductAdminComponent implements OnInit {
       template,
       Object.assign({}, { class: 'gray modal-lg' })
     );
+  }
+  selectFiles(event:any) {
+    this.progressInfos = [];
+
+    const files = event.target.files;
+    let isImage = true;
+
+    for (let i = 0; i < files.length; i++) {
+      if (files.item(i).type.match('image.*')) {
+        continue;
+      } else {
+        isImage = false;
+        alert('invalid format!');
+        break;
+      }
+    }
+
+    if (isImage) {
+      this.selectedFiles = event.target.files;
+    } else {
+      this.selectedFiles = undefined;
+      event.srcElement.percentage = null;
+    }
+  }
+  upload(idx:any, file:any) {
+    this.progressInfos[idx] = { value: 0, fileName: file.name };
+
+    this.uploadService.upload(file).subscribe(
+      event => {
+        if (event.type === HttpEventType.UploadProgress) {  
+          const total:any = event.total;
+          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / total);
+        } else if (event instanceof HttpResponse) {
+          this.fileInfos = this.uploadService.getFiles();
+          
+        }
+      },
+      err => {
+        this.progressInfos[idx].percentage = 0;
+        this.message = 'Could not upload the file:' + file.name;
+       
+      });
+  }
+  uploadFiles() {
+    this.message = '';
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      this.upload(i, this.selectedFiles[i]);
+    }
   }
 }

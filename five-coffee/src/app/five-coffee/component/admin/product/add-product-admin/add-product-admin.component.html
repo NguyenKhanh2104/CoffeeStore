@@ -69,7 +69,7 @@
                                 <label class="control-label">Giá bán</label>
                                 <input class="form-control" formControlName="price" type="text">
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-9">
                                 <label class="control-label">Mô tả sản phẩm</label>
                                 <input class="form-control" formControlName="description" name="mota" id="mota">
                                 <script>CKEDITOR.replace('mota');</script>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                             <div class="alert alert-light" role="alert">{{ message }}</div>
-                            <button [disabled]="!selectedFiles" class="btn btn-save"
+                            <button  class="btn btn-save"
                                 (click)="postProduct()" type="button">Lưu lại</button>
                             <a class="btn btn-cancel" [routerLink]="['/admin/product/']">Hủy bỏ</a>
                         </form>

@@ -137,10 +137,10 @@
             <label class="control-label">Tên sản phẩm</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.name" formControlName="name">
           </div>
-          <div class="form-group col-md-4">
+          <!-- <div class="form-group col-md-4">
             <label class="control-label">Hình ảnh</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.img" formControlName="img">
-          </div>
+          </div> -->
           <!-- <div class="form-group col-md-4">
             <label class="control-label">Trạng thái</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.status" formControlName="status">
@@ -154,19 +154,38 @@
             <input class="form-control" type="text" required [(ngModel)]="editModal.salePrice"
               formControlName="sale_price">
           </div> -->
-          <div class="form-group col-md-4">
+          <!-- <div class="form-group col-md-4">
             <label class="control-label">Số lượng</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.qty" formControlName="qty">
-          </div>
+          </div> -->
           <div class="form-group col-md-4">
             <label class="control-label">Danh mục</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.category" formControlName="category">
           </div>
-          <div class="form-group  col-md-5">
+          <div class="form-group  col-md-8">
             <label class="control-label">Mô tả</label>
             <input class="form-control" type="text" required [(ngModel)]="editModal.description"
-              formControlName="description" style="height: 100px;width: 765px;word-wrap:break-word;overflow: scroll;">
+              formControlName="description" style="height: 35px;word-wrap:break-word;overflow: scroll;">
           </div>
+          <label class="btn btn-default">
+            <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+        </label>
+
+        <button class="btn btn-success" style="width: 10%;margin-left: 1.5%" [disabled]="!selectedFiles"
+            (click)="uploadFiles()">
+            Upload
+        </button>
+        <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+            <span>{{ progressInfo.fileName }}</span>
+            <div class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                    attr.aria-valuenow="{{ progressInfo.percentage }}" aria-valuemin="0"
+                    aria-valuemax="100" [ngStyle]="{ width: progressInfo.percentage + '%' }">
+                    {{ progressInfo.percentage }}%
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-light" role="alert">{{ message }}</div>
           <!-- <div class="form-group  col-md-4">
                 <label for="exampleSelect1" class="control-label">Chức vụ</label>
                 <select class="form-control" id="exampleSelect1">
