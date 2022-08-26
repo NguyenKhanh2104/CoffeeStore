@@ -83,15 +83,19 @@
                   <td>{{l.birthday}}</td>
                   <td>{{l.sex}}</td>
                   <td>{{l.role}}</td>
-                  <td class="table-td-center" style="display:flex;border: none;justify-content: space-around;">
-                    <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                      data-toggle="modal" (click)="openModalWithClass(template)" (click)="editUser(l)"><i
-                        class="fas fa-edit" style="font-size: 20px"></i>
+                  <td class="table-td-center" style="border: none;justify-content: space-around; ">
+                    <div style="display: flex;">
+                    <button style="justify-content:center" class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                    data-toggle="modal" (click)="openModalWithClass(template)" (click)="editUser(l)"><i
+                    class="fas fa-edit" style="font-size: 20px"></i>
                     </button>
                     <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
                       (click)="removeUser(l)"><i class="fas fa-trash-alt" style="font-size: 20px"></i>
                     </button>
-                  </td>
+                  </div>
+
+
+                  
                 </tr>
               </tbody>
             </table>
