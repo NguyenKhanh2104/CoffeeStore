@@ -3,18 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-  <!-- or -->
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-  <link rel="stylesheet" type="text/css"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-  <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-  <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <title>Document</title>
 </head>
 
 <body class="app sidebar-mini rtl">
@@ -48,39 +48,66 @@
                             </div>
                         </div>
                         <form class="row" [formGroup]="formValue">
-                            <div class="form-group col-md-3">
+                            <!-- <div class="form-group col-md-3">
                                 <label class="control-label">Mã sản phẩm </label>
-                                <input class="form-control"  formControlName="productId" type="text" placeholder="">
-                            </div>
+                                <input class="form-control" formControlName="productId" type="text" placeholder="">
+                            </div> -->
                             <div class="form-group col-md-3">
                                 <label class="control-label">Tên sản phẩm</label>
-                                <input class="form-control"  formControlName="name" type="text">
+                                <input class="form-control" formControlName="name" type="text">
                             </div>
-                            <div class="form-group  col-md-3">
+                            <!-- <div class="form-group  col-md-3">
                                 <label class="control-label">Số lượng</label>
-                                <input class="form-control"  formControlName="qty" type="text">
-                            </div>
+                                <input class="form-control" formControlName="qty" type="text">
+                            </div> -->
                             <div class="form-group col-md-3">
                                 <label for="exampleSelect1" class="control-label">Danh mục</label>
-                                <input class="form-control"  formControlName="category" type="text">
+                                <input class="form-control" formControlName="category" type="text">
                             </div>
-                    
+
                             <div class="form-group col-md-3">
                                 <label class="control-label">Giá bán</label>
-                                <input class="form-control"  formControlName="price" type="text">
-                            </div>
-                            <div class="form-group col-md-9">
-                                <label class="control-label">Ảnh sản phẩm</label>
-                                <input class="form-control"  formControlName="img" type="text">
-                              
-
+                                <input class="form-control" formControlName="price" type="text">
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">Mô tả sản phẩm</label>
-                                <input class="form-control" formControlName="description" name="mota" id="mota" >
+                                <input class="form-control" formControlName="description" name="mota" id="mota">
                                 <script>CKEDITOR.replace('mota');</script>
                             </div>
-                            <button class="btn btn-save" [routerLink]="['/admin/product/']" (click)="postProduct()" type="button">Lưu lại</button>
+                            <!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                                <label class="control-label">Hình ảnh</label>
+                                <span>{{ progressInfo.fileName }}</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                        attr.aria-valuenow="{{ progressInfo.percentage }}" aria-valuemin="0"
+                                        aria-valuemax="100" [ngStyle]="{ width: progressInfo.percentage + '%' }">
+                                        {{ progressInfo.percentage }}%
+                                    </div>
+                                </div>
+                            </div> -->
+                            
+                     
+                            <label class="btn btn-default">
+                                <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+                            </label>
+
+                            <button class="btn btn-success" style="width: 10%" [disabled]="!selectedFiles"
+                                (click)="uploadFiles()">
+                                Upload
+                            </button>
+                            <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                                <span>{{ progressInfo.fileName }}</span>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                                        attr.aria-valuenow="{{ progressInfo.percentage }}" aria-valuemin="0"
+                                        aria-valuemax="100" [ngStyle]="{ width: progressInfo.percentage + '%' }">
+                                        {{ progressInfo.percentage }}%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-light" role="alert">{{ message }}</div>
+                            <button [disabled]="!selectedFiles" class="btn btn-save"
+                                (click)="postProduct()" type="button">Lưu lại</button>
                             <a class="btn btn-cancel" [routerLink]="['/admin/product/']">Hủy bỏ</a>
                         </form>
                     </div>

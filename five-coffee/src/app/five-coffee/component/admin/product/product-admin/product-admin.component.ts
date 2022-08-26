@@ -54,8 +54,10 @@ export class ProductAdminComponent implements OnInit {
     if (result) {
       this.productService.removeAProduct(listBook.id).subscribe((res) => {
         console.log("da xoa")
+        window.location.assign('http://localhost:4200/admin/product')
         let index = this.listProducts.indexOf(listBook);
         this.listProducts.splice(index, 1);
+        
       })
     }
   }
