@@ -40,7 +40,7 @@ export class ProductAdminComponent implements OnInit {
     })
   }
   show() {
-    this.listProducts = this.productService.getProducts();
+    this.listProducts = this.productService.getProductsAdmin();
     // this.listProducts = this.orderpipe.transform(this.productService.getProducts(), 'id');
     this.arrays = this.listProducts;
     console.log("LIST PRODUCT", this.arrays, typeof this.arrays);

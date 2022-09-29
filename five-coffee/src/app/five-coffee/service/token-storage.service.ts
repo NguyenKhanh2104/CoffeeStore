@@ -30,7 +30,8 @@ export class TokenStorageService {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization':'Bearer '+this.getToken()
-      })
+      }).set('Content-Type', 'application/json')
+      .set('X-API-TOKEN', this.getToken())
     };
     const user = this.getUser(); 
     this.userid = user.id;

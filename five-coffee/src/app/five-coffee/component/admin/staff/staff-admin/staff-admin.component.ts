@@ -6,6 +6,7 @@ import { UserService } from 'src/app/five-coffee/service/user.service';
 import { Observable } from 'rxjs';
 import { UploadFilesService } from 'src/app/five-coffee/service/upload-files.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.service';
 
 @Component({
   selector: 'app-staff-admin',
@@ -16,6 +17,7 @@ export class StaffAdminComponent implements OnInit {
   modalRef!: BsModalRef;  
   listUser: any[] = [];
   arrays: any = [];
+  arrays6: any = [];
   public userObj: any = [];
     editModal:any;
     searchText: any = '';
@@ -26,11 +28,11 @@ export class StaffAdminComponent implements OnInit {
   message = '';
   fileInfos!: Observable<any>;
   constructor(private uploadService:UploadFilesService,private userService:UserService,private orderpipe: OrderPipe, private modalService: BsModalService, 
-     private formBuiler: FormBuilder) { }
+     private formBuiler: FormBuilder,private tokenStorageService:TokenStorageService) { }
 
   ngOnInit(): void {
     this.show();
-
+    this.showUser();
     this.updateUserForm = this.formBuiler.group({
       
       userId:[''],
@@ -55,7 +57,18 @@ export class StaffAdminComponent implements OnInit {
         console.log(this.listUser, typeof this.listUser);
       })
   }
+  showUser() {
+    this.userService.getUsers().subscribe
+      (data => {
+        console.log(data);
+        this.listUser = data;
+        this.listUser = this.orderpipe.transform(data, 'id');
+        this.arrays6 = data;
+        console.log("LIST user", this.arrays, typeof this.arrays);
 
+      })
+
+  }
   removeUser(listUser: any) {
     var result = confirm("Bạn chắc chắn muốn xóa ");
     if (result) {
@@ -141,17 +154,27 @@ export class StaffAdminComponent implements OnInit {
       sex: value.sex,
       birthday:value.birthday,
       role: value.role
-
-  
     }
- 
-    this.userService.getUpdateUser(userObj, this.editModal.id).subscribe(
-      (res =>{
-      
-        console.log(res)
-      })
-    );
-    window.location.assign('http://localhost:4200/admin/staff')
+    if(this.tokenStorageService.getUser().id==this.editModal.id){
+      this.userService.getUpdateUser(userObj, this.editModal.id).subscribe(
+        (res =>{
+          console.log(res)
+          
+        })
+      );
+      this.tokenStorageService.signOut();
+      window.location.assign('http://localhost:4200/login')
+    }
+    else{
+      this.userService.getUpdateUser(userObj, this.editModal.id).subscribe(
+        (res =>{
+          console.log(res)
+          
+        })
+      );
+      window.location.assign('http://localhost:4200/admin/staff')
+    }
+    
   }
   closeModal(){
     window.location.assign('http://localhost:4200/admin/staff')

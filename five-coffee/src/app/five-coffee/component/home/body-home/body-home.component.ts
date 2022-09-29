@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/five-coffee/service/category.service';
 import { OrderService } from 'src/app/five-coffee/service/order.service';
 import { ProductService } from 'src/app/five-coffee/service/product.service';
 import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.service';
+import { UserService } from 'src/app/five-coffee/service/user.service';
 
 @Component({
   selector: 'app-body-home',
@@ -15,6 +16,7 @@ import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.s
 })
 export class BodyHomeComponent implements OnInit {
   listProducts: any[] = [];
+  listUser :any[] = [];
   listCategory: any[] = [];
   page = 1;
   listBill: any[] = [];
@@ -33,6 +35,7 @@ export class BodyHomeComponent implements OnInit {
   sizeId = 1;
   pay_type = "";
   searchText: any = '';
+  productName:any = '';
   searchKey: any = '';
 
   data = '';
@@ -41,7 +44,7 @@ export class BodyHomeComponent implements OnInit {
   cartTotalPrice: any;
   test = 'Mang đi'
   constructor(private httpClient:HttpClient,private orderservice: OrderService, private http: TokenStorageService, private orderpipe: OrderPipe, private productService: ProductService,
-    private categoryService: CategoryService, private cartService: CartService) { }
+    private categoryService: CategoryService,private userService:UserService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.show();
@@ -68,6 +71,8 @@ export class BodyHomeComponent implements OnInit {
       })
 
   }
+  arrays6: any = [];
+  
   showCategory() {
     this.categoryService.getProductsByCategory().subscribe(data => {
       this.listCategory = this.orderpipe.transform(data, 'name');
@@ -96,15 +101,15 @@ export class BodyHomeComponent implements OnInit {
   ]
 
   
-  searchThis(data: any) {
-    if (data == "") {
-      this.ngOnInit();
-    } else {
-      this.listProducts = this.listProducts.filter(res => {
-        return res.name.toLocaleLowerCase().match(data.toLocaleLowerCase());
-      })
-    }
-  }
+  // searchThis(data: String) {
+  //   if (data == '') {
+  //     this.listProducts = this.listProducts.filter(res => {
+  //       return res.name.toLocaleLowerCase().match(data.toLocaleLowerCase());
+  //     })
+  //   } else {
+  //    this.show();
+  //   }
+  // }
 
   setNewProduct(id: any): void {
 
@@ -113,14 +118,16 @@ export class BodyHomeComponent implements OnInit {
         (data => {
           // console.log(data);
           this.listProducts = this.orderpipe.transform(data, 'name');
-          this.listProducts = this.listProducts.filter(value => value.category === 1);
+          this.listProducts = this.listProducts.filter(value => value.category === "Thức Uống");
+          console.log(this.listProducts);
         });
     } else if (id == 2) {
       this.productService.getProducts().subscribe
         (data => {
           // console.log(data);
           this.listProducts = this.orderpipe.transform(data, 'name');
-          this.listProducts = this.listProducts.filter(value => value.category === 2);
+          this.listProducts = this.listProducts.filter(value => value.category === "Thức Ăn");
+          console.log(this.listProducts);
         });
 
     } else {

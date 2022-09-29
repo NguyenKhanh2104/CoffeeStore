@@ -1,6 +1,6 @@
 <app-header-home></app-header-home>
 <div class="">
-
+   
     <div class="abc" style="margin-top: 30px;width: 90% ">
         <div class="row" style="display:flex;width: 108%">
             <div class="col-sm-7"
@@ -20,8 +20,8 @@
                     <div class="">
 
                         <form class="form-inline">
-                            <input [(ngModel)]="searchText" name="search" class="form-control mr-sm-3 w-90"
-                                type="search" placeholder="Search" aria-label="Search">
+                            <input  name="search" class="form-control mr-sm-3 w-90"
+                            [(ngModel)]="productName" type="search" placeholder="Search" aria-label="Search">
 
                         </form>
                     </div>
@@ -29,7 +29,7 @@
 
                 <div class="row featured__filter" style="justify-content: flex-start">
                     <div class="col-lg-3  col-sm-6" *ngFor="let p of listProducts 
-                    | searchFilter: searchText
+                    | searchFilter:productName
                 
                     | paginate: {
                         itemsPerPage: tableSize,
@@ -63,7 +63,7 @@
                     </div>
 
                 </div>
-
+                <!-- <div >{{listUser }}</div> -->
             </div>
             <nav class="mt-4 " style="position: absolute" aria-label="Page navigation sample">
                 <ul class="pagination" style="position: absolute;margin-top: 34%;margin-left: 23%;">
@@ -123,13 +123,14 @@
                     </table>
                 </div>
                 <div class="note" style="background-color: #FFF;
-                width: 103.5%;
+                width: 103%;
                 height: 80px;
                 margin-top: -10px;
                 margin-left: -8px;
                 border-top-left-radius: 7px;
                 border-top-right-radius:7px ;display: flex">
-                    <p style="justify-content: center;margin-top: 25px">Ghi chú : </p>
+
+                    <p style="justify-content: center;margin-top: 25px;width: 12%;">Ghi chú : </p>
                     <input style="height: 80%;width: 50%;margin-top: 5px" [(ngModel)]="noteCheckout">
                     <div>
                         <p style="margin-left: 25%"> Tổng tiền : ${{cartTotalPrice}}</p>
@@ -227,7 +228,7 @@
                                         <div class="popupDonHang"><b>{{moneyPayCus}}</b></div>
                                     </div>
                                     <div>
-                                        <div class="" style="text-align: justify">Ghi chú : <b>{{noteCheckout}}</b>
+                                        <div class="" style="text-align: justify">Ghi chú <b>{{noteCheckout}}</b>
                                         </div>
 
                                     </div>

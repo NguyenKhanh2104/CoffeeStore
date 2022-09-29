@@ -17,6 +17,9 @@ export class ProductService {
   getProducts(): Observable<any> {
     return this.http.get(API_URL + 'allProduct');
   }
+  getProductsAdmin(): Observable<any> {
+    return this.http.get(API_URL2 + 'allProduct');
+  }
   getAProduct(id: any) :Observable<any> {
     return this.http.get(API_URL + 'find/' + id);
   }

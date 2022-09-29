@@ -1,6 +1,6 @@
 <aside class="app-sidebar">
       <div class="app-sidebar__user" *ngFor="let i of imageUser | async">
-            <img class="app-sidebar__user-avatar" src="{{i.url}}" style="width: 90%;height: 30%;"  alt="User Image">
+            <img class="app-sidebar__user-avatar" loading="lazy" src="{{i.url}}" style="width: 90%;height: 30%;"  alt="User Image">
             <div>
                   <p class="app-sidebar__user-name"><b>{{username}}</b></p>
                   <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>

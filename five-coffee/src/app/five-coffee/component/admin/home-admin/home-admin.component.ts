@@ -40,11 +40,11 @@ export class HomeAdminComponent {
         {
           type: 'column', // Change type to "bar", "area", "spline", "pie",etc.
           dataPoints: [
-            { label: 'apple', y: 10 },
-            { label: 'orange', y: 15 },
-            { label: 'banana', y: 25 },
-            { label: 'mango', y: 30 },
-            { label: 'grape', y: 28 },
+            { label: 'Tháng 3', y: 10 },
+            { label: 'Tháng 4', y: 15 },
+            { label: 'Tháng 5', y: 25 },
+            { label: 'Tháng 6', y: 30 },
+            { label: 'Tháng 7', y: 28 },
           ],
         },
       ],
@@ -61,11 +61,11 @@ export class HomeAdminComponent {
         {
           type: 'pie', // Change type to "bar", "area", "spline", "pie",etc.
           dataPoints: [
-            { label: 'apple', y: 10 },
-            { label: 'orange', y: 15 },
-            { label: 'banana', y: 25 },
-            { label: 'mango', y: 30 },
-            { label: 'grape', y: 28 },
+            { label: 'Trà sen ', y: 10 },
+            { label: 'Trà xanh', y: 15 },
+            { label: 'Bánh pudding', y: 25 },
+            { label: 'Trà đào cam sả', y: 30 },
+            { label: 'Trà thảo mộc', y: 28 },
           ],
         },
       ],
@@ -87,7 +87,7 @@ export class HomeAdminComponent {
     })
   }
   showProduct(){
-    this.productService.getProducts().subscribe
+    this.productService.getProductsAdmin().subscribe
     (data2 => {
       // console.log(data);
       // this.listOrder = this.orderpipe.transform(data, 'id');

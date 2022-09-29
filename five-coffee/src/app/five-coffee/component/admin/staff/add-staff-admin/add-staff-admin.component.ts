@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/five-coffee/service/auth.service';
+import { TokenStorageService } from 'src/app/five-coffee/service/token-storage.service';
 import { UploadFilesService } from 'src/app/five-coffee/service/upload-files.service';
 import { UserService } from 'src/app/five-coffee/service/user.service';
-
 @Component({
   selector: 'app-add-staff-admin',
   templateUrl: './add-staff-admin.component.html',
@@ -21,22 +21,22 @@ export class AddStaffAdminComponent implements OnInit {
   progressInfos? : any;
   message = '';
   fileInfos!: Observable<any>;
-  constructor(private uploadService:UploadFilesService,private authService: AuthService) { }
+  constructor(private tokenStorageService:TokenStorageService,private uploadService:UploadFilesService,private userService:UserService) { }
 
   ngOnInit(): void { }
 
   postUser(): void {
-    this.authService.register(this.form).subscribe(
+    this.userService.register(this.form).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        
+        window.location.assign('http://localhost:4200/admin/staff')
       },
       err => {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
-        window.location.assign('http://localhost:4200/admin/staff')
+        
       }
     );
   }

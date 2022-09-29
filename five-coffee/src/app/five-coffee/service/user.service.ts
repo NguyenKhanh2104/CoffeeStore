@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, map } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 const API_URL = 'http://localhost:8080/api/admin/';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,10 +19,13 @@ export class UserService {
   getUsers(): Observable<any> {
     return this.http.get(API_URL + 'allUser');
   }
-
-  // getUserBoard(): Observable<any> {
-  //   return this.http.get(API_URL + 'user');
+  // testGetUsers(): Observable<any> {
+  //   return this.http.get('http://localhost:8080/api/test/allUser', {responseType: 'json'});
   // }
+  
+  getUserBoard(): Observable<any> {
+    return this.http.get(API_URL + 'user');
+  }
 
   getModeratorBoard(): Observable<any> {
     return this.http.get(API_URL + 'mod', { responseType: 'text' });
@@ -38,16 +43,18 @@ export class UserService {
       }))
   }
 
-  getAddUser(data: any): Observable<any>{
-    let headers = new HttpHeaders();
-    headers.append('content-type', 'application/json');
-    headers.append('accept', 'application/json');
-    return this.http.post(API_URL + "addUser", data, {headers: headers}).pipe(map(
-      (reponse: any) =>{
-        return reponse;
-      }
-    ))
-  
+  register(user:any): Observable<any> {
+    return this.http.post(API_URL + 'signup', {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      address: user.address,
+      fullName:user.fullName,
+      sex:user.sex,
+      birthday:user.birthday, 
+      role:user.role
+    }, httpOptions);
   }
 
   getAUser(id: any) :Observable<any> {
@@ -59,9 +66,11 @@ export class UserService {
         return reponse;
       }
     ))
+    
   }
   getImageUser(id:any):Observable<any>{
     return this.http.get(API_URL + 'getImageUser/'+id);
   }
+
 }
 
